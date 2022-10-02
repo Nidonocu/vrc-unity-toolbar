@@ -1,5 +1,11 @@
 {
   "dependencies": {
+    "com.nidonocu.vrcunitytoolbar": {
+      "version": "file:com.nidonocu.vrcunitytoolbar",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "com.unity.ext.nunit": {
       "version": "1.0.6",
       "depth": 1,
@@ -17,7 +23,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.ide.visualstudio": {
-      "version": "2.0.11",
+      "version": "2.0.16",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -26,7 +32,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.ide.vscode": {
-      "version": "1.2.4",
+      "version": "1.2.5",
       "depth": 0,
       "source": "registry",
       "dependencies": {},
@@ -95,12 +101,6 @@
       "dependencies": {
         "com.unity.nuget.newtonsoft-json": "2.0.2"
       }
-    },
-    "com.vrchat.demo-template": {
-      "version": "file:com.vrchat.demo-template",
-      "depth": 0,
-      "source": "embedded",
-      "dependencies": {}
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",

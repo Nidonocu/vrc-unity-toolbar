@@ -1,0 +1,16 @@
+{
+  "name": "com.nidonocu.vrcunitytoolbar.Editor",
+  "references": [
+    "VRC.SDKBase",
+    "VRC.SDKBase.Editor",
+    "com.nidonocu.vrcunitytoolbar"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "autoReferenced": true,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "defineConstraints": [],
+  "optionalUnityReferences": []
+}
