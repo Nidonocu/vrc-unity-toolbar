@@ -3,9 +3,10 @@ using UnityEngine;
 #if VRC_SDK_VRCSDK2 || VRC_SDK_VRCSDK3
 using VRC.SDK3.Avatars.Components;
 #endif
-#if CVR_CCK_EXISTS
+// TODO: CCK Compatibility doesn't work with components, must be imported as a classic asset to work
+/*#if CVR_CCK_EXISTS
 using ABI.CCK.Components;
-#endif
+#endif*/
 
 #if UNITY_EDITOR
 namespace UnityToolbarExtender.Nidonocu
@@ -89,10 +90,12 @@ namespace UnityToolbarExtender.Nidonocu
 #if VRC_SDK_VRCSDK2 || VRC_SDK_VRCSDK3
                     childDesc = selected.gameObject.GetComponentInChildren<VRCAvatarDescriptor>();
 #endif
+/*
 #if CVR_CCK_EXISTS
 					if (childDesc == null)
                         childDesc = selected.gameObject.GetComponentInChildren<CVRAvatar>();
 #endif
+*/
                     if (childDesc == null)
                     {
                         // If no AVD, check parent objects for one and select that
@@ -100,10 +103,12 @@ namespace UnityToolbarExtender.Nidonocu
 #if VRC_SDK_VRCSDK2 || VRC_SDK_VRCSDK3
                         parentDesc = selected.gameObject.GetComponentInParent<VRCAvatarDescriptor>();
 #endif
+/*
 #if CVR_CCK_EXISTS
                         if (parentDesc == null)
                             parentDesc = selected.gameObject.GetComponentInParent<CVRAvatar>();
 #endif
+*/
                         if (parentDesc != null)
                         {
                             lastSelectedObject = Selection.activeObject;
@@ -122,10 +127,12 @@ namespace UnityToolbarExtender.Nidonocu
 #if VRC_SDK_VRCSDK2 || VRC_SDK_VRCSDK3
                 presentAVDs = Object.FindObjectsOfType<VRCAvatarDescriptor>();
 #endif
+/*
 #if CVR_CCK_EXISTS
                 if (presentAVDs.Length == 0)
 				    presentAVDs = Object.FindObjectsOfType<CVRAvatar>();
 #endif
+*/
                 foreach (Component presentAVD in presentAVDs)
                 {
                     if (presentAVD.gameObject.activeInHierarchy)
