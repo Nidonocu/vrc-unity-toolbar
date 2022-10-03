@@ -4,6 +4,7 @@ using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
+#if UNITY_EDITOR
 namespace UnityToolbarExtender
 {
 	[InitializeOnLoad]
@@ -167,3 +168,4 @@ namespace UnityToolbarExtender
 		}
 	}
 }
+#endif

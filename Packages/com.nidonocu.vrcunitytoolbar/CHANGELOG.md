@@ -1,5 +1,8 @@
 # Change Log
 
+### 1.0.2
+* Fixes issue when publishing avatars
+
 ### 1.0.1
 * Disabled CCK code as does not work while part of a package.
 
