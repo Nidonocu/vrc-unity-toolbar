@@ -28,8 +28,10 @@ namespace UnityToolbarExtender
 			
 			FieldInfo toolIcons = toolbarType.GetField(fieldName,
 				BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
-			
-#if UNITY_2019_3_OR_NEWER
+
+#if UNITY_2019_4_OR_NEWER
+			m_toolCount = toolIcons != null ? ((int)toolIcons.GetValue(null)) : 9;
+#elif UNITY_2019_3_OR_NEWER
 			m_toolCount = toolIcons != null ? ((int) toolIcons.GetValue(null)) : 8;
 #elif UNITY_2019_1_OR_NEWER
 			m_toolCount = toolIcons != null ? ((int) toolIcons.GetValue(null)) : 7;
@@ -38,7 +40,7 @@ namespace UnityToolbarExtender
 #else
 			m_toolCount = toolIcons != null ? ((Array) toolIcons.GetValue(null)).Length : 5;
 #endif
-	
+
 			ToolbarCallback.OnToolbarGUI = OnGUI;
 			ToolbarCallback.OnToolbarGUILeft = GUILeft;
 			ToolbarCallback.OnToolbarGUIRight = GUIRight;
@@ -82,6 +84,9 @@ namespace UnityToolbarExtender
 			leftRect.xMin += largeSpace; // Spacing between tools and pivot
 #endif
 			leftRect.xMin += 64 * 2; // Pivot buttons
+#if UNITY_2019_4_OR_NEWER
+			leftRect.xMin += buttonWidth; // Grid Snap button
+#endif
 			leftRect.xMax = playButtonsPosition;
 
 			Rect rightRect = new Rect(0, 0, screenWidth, Screen.height);

@@ -1,5 +1,8 @@
 # Change Log
 
+### 1.1.0
+* Added Backward and Forward Selection navigation buttons
+
 ### 1.0.2
 * Fixes issue when publishing avatars
 

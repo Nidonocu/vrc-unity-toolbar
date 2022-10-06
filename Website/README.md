@@ -2,7 +2,7 @@
 
 This package adds additional buttons to the Unity Editor's Toolbar that removes the need to perform various frequent actions done when building avatars and worlds in [VR Chat](https://vrchat.com/).
 
-Currently this is two functions, **Focus Scene View** and **Auto-Select Avatar**.
+Currently this is three functions, **Selection Navigation**, **Focus Scene View** and **Auto-Select Avatar**.
 
 More functions may be added over time.
 
@@ -44,6 +44,26 @@ If you are not using the VRChat Creator Companion in a classic project, you can 
 
 ## How to Use
 The package once installed, will add additional buttons to the Unity Toolbar found at the top of the editor.
+
+Located to the right of the **toolbox**, you can find the following buttons.
+
+![The Navigation Buttons](https://nidonocu.github.io/vrc-unity-toolbar/LeftUI.png)
+
+### Selection Navigation
+
+These buttons act much like the back and forward buttons on your web browser and let you move to a previously selected item without undoing changes like the built in Undo function
+
+This includes both Objects within the current Scene and Assets within your Asset Library.
+
+The navigation buttons will remember up to 100 navigation changes. However, the **memory will be cleared** whenever you enter or leave **Play** mode, or recompile any scripts within the project, this is a limitation of Unity.
+
+To move back to a previous selection state, click the **Back** button. Once you have navigated backward, you can navigate forward again in your selection history by clicking the **Forward** button.
+
+Selecting something new will always clear the Forward history, similar to how making a change after Undoing clears the ability to 'Redo'.
+
+If you navigate back to an Object or Asset which no longer exists because it has been deleted or you have loaded a different scene, the current selection will just be set to nothing.
+
+---
 
 Located to the right of the **Play** and **Pause** buttons you can find the following toggle buttons.
 

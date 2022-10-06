@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 #if VRC_SDK_VRCSDK2 || VRC_SDK_VRCSDK3
 using VRC.SDK3.Avatars.Components;
@@ -40,10 +41,23 @@ namespace UnityToolbarExtender.Nidonocu
         }
 #endif
 
-        static Object lastSelectedObject = null;
+        static List<Object> BackStack = new List<Object>();
+
+        static List<Object> ForwardStack = new List<Object>();
+
+        static Object CurrentSelection = null;
+
+        static Object lastSelectedObjectBeforePlay = null;
+
+        static bool NavigatingStack = false;
 
         static VRExtensionButtons()
         {
+            System.Action selectionAction = OnSelectionChanged;
+            Selection.selectionChanged += selectionAction;
+            ToolbarExtender.LeftToolbarGUI.Add(OnBackGUI);
+            ToolbarExtender.LeftToolbarGUI.Add(OnForwardGUI);
+
             m_switchToScene = EditorPrefs.GetBool("SwitchToScene", false);
             EditorApplication.playModeStateChanged += OnPlayModeChanged;
             ToolbarExtender.RightToolbarGUI.Add(OnSceneToolbarGUI);
@@ -111,7 +125,7 @@ namespace UnityToolbarExtender.Nidonocu
 */
                         if (parentDesc != null)
                         {
-                            lastSelectedObject = Selection.activeObject;
+                            lastSelectedObjectBeforePlay = Selection.activeObject;
                             Selection.activeTransform = parentDesc.gameObject.transform;
                             return;
                         }
@@ -137,7 +151,7 @@ namespace UnityToolbarExtender.Nidonocu
                 {
                     if (presentAVD.gameObject.activeInHierarchy)
                     {
-                        lastSelectedObject = Selection.activeObject;
+                        lastSelectedObjectBeforePlay = Selection.activeObject;
                         Selection.activeTransform = presentAVD.gameObject.transform;
                         break;
                     }
@@ -145,13 +159,70 @@ namespace UnityToolbarExtender.Nidonocu
             }
             if (SelectAvatar && obj == PlayModeStateChange.EnteredEditMode)
             {
-                if (lastSelectedObject != null)
+                if (lastSelectedObjectBeforePlay != null)
                 {
-                    Selection.activeObject = lastSelectedObject;
-                    lastSelectedObject = null;
+                    Selection.activeObject = lastSelectedObjectBeforePlay;
+                    lastSelectedObjectBeforePlay = null;
                 }
             }
 #endif
+        }
+
+        const int MaximumStackSize = 100;
+
+        static void OnSelectionChanged()
+        {
+            if (!NavigatingStack)
+            {
+                BackStack.Add(CurrentSelection);
+                if (BackStack.Count > MaximumStackSize)
+                {
+                    BackStack.RemoveAt(0);
+                }
+                ForwardStack.Clear();
+                CurrentSelection = Selection.activeObject;
+            }
+            else { NavigatingStack = false; }
+        }
+
+        static void NavigateBack()
+        {
+            NavigatingStack = true;
+            Selection.activeObject = BackStack[BackStack.Count - 1];
+            ForwardStack.Add(CurrentSelection);
+            BackStack.RemoveAt(BackStack.Count - 1);
+            CurrentSelection = Selection.activeObject;
+        }
+
+        static void NavigateForward()
+        {
+            NavigatingStack = true;
+            Selection.activeObject = ForwardStack[ForwardStack.Count - 1];
+            BackStack.Add(CurrentSelection);
+            ForwardStack.RemoveAt(ForwardStack.Count - 1);
+            CurrentSelection = Selection.activeObject;
+        }
+
+        static void OnBackGUI()
+        {
+            var tex = EditorGUIUtility.IconContent(@"ArrowNavigationLeft").image;
+            EditorGUI.BeginDisabledGroup(BackStack.Count == 0);
+            if (GUILayout.Button(new GUIContent(null, tex, "Navigate to previous selection"), "Command"))
+            {
+                NavigateBack();
+            }
+            EditorGUI.EndDisabledGroup();
+        }
+
+        static void OnForwardGUI()
+        {
+            var tex = EditorGUIUtility.IconContent(@"ArrowNavigationRight").image;
+            EditorGUI.BeginDisabledGroup(ForwardStack.Count == 0);
+            if (GUILayout.Button(new GUIContent(null, tex, "Navigate to next selection"), "Command"))
+            {
+                NavigateForward();
+            }
+            EditorGUI.EndDisabledGroup();
         }
 
         static void OnSceneToolbarGUI()
