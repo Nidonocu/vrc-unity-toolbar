@@ -1,5 +1,8 @@
 # Change Log
 
+### 1.1.1
+* Fixed not working in VRC World projects
+
 ### 1.1.0
 * Added Backward and Forward Selection navigation buttons
 

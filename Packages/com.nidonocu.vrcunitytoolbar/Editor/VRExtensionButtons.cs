@@ -27,7 +27,7 @@ namespace UnityToolbarExtender.Nidonocu
             }
         }
 
-#if VRC_SDK_VRCSDK2 || VRC_SDK_VRCSDK3 || CVR_CCK_EXISTS
+#if VRC_SDK_VRCSDK2 || VRC_SDK_VRCSDK3 && !UDON || CVR_CCK_EXISTS
         static bool m_selectAvatar;
 
         static bool SelectAvatar
@@ -47,7 +47,9 @@ namespace UnityToolbarExtender.Nidonocu
 
         static Object CurrentSelection = null;
 
+#if VRC_SDK_VRCSDK2 || VRC_SDK_VRCSDK3 && !UDON || CVR_CCK_EXISTS
         static Object lastSelectedObjectBeforePlay = null;
+#endif
 
         static bool NavigatingStack = false;
 
@@ -62,7 +64,7 @@ namespace UnityToolbarExtender.Nidonocu
             EditorApplication.playModeStateChanged += OnPlayModeChanged;
             ToolbarExtender.RightToolbarGUI.Add(OnSceneToolbarGUI);
 
-#if VRC_SDK_VRCSDK2 || VRC_SDK_VRCSDK3 || CVR_CCK_EXISTS
+#if VRC_SDK_VRCSDK2 || VRC_SDK_VRCSDK3 && !UDON || CVR_CCK_EXISTS
             m_selectAvatar = EditorPrefs.GetBool("SelectAvatar", false);
             EditorApplication.pauseStateChanged += OnPauseChanged;
             ToolbarExtender.RightToolbarGUI.Add(OnSelectAvatarToolbarGUI);
@@ -93,7 +95,7 @@ namespace UnityToolbarExtender.Nidonocu
                 EditorWindow.FocusWindowIfItsOpen<SceneView>();
             }
 
-#if VRC_SDK_VRCSDK2 || VRC_SDK_VRCSDK3 || CVR_CCK_EXISTS
+#if VRC_SDK_VRCSDK2 || VRC_SDK_VRCSDK3 && !UDON || CVR_CCK_EXISTS
             if (SelectAvatar && obj == PlayModeStateChange.EnteredPlayMode)
             {
                 var selected = Selection.activeTransform;
@@ -101,7 +103,7 @@ namespace UnityToolbarExtender.Nidonocu
                 if (selected != null)
                 {
                     Component childDesc = null;
-#if VRC_SDK_VRCSDK2 || VRC_SDK_VRCSDK3
+#if VRC_SDK_VRCSDK2 || VRC_SDK_VRCSDK3 && !UDON
                     childDesc = selected.gameObject.GetComponentInChildren<VRCAvatarDescriptor>();
 #endif
 /*
@@ -114,7 +116,7 @@ namespace UnityToolbarExtender.Nidonocu
                     {
                         // If no AVD, check parent objects for one and select that
                         Component parentDesc = null;
-#if VRC_SDK_VRCSDK2 || VRC_SDK_VRCSDK3
+#if VRC_SDK_VRCSDK2 || VRC_SDK_VRCSDK3 && !UDON
                         parentDesc = selected.gameObject.GetComponentInParent<VRCAvatarDescriptor>();
 #endif
 /*
@@ -138,7 +140,7 @@ namespace UnityToolbarExtender.Nidonocu
                 }
                 // If null, find the first active object with an AV Descriptor
                 Object[] presentAVDs = new Object[0];
-#if VRC_SDK_VRCSDK2 || VRC_SDK_VRCSDK3
+#if VRC_SDK_VRCSDK2 || VRC_SDK_VRCSDK3 && !UDON
                 presentAVDs = Object.FindObjectsOfType<VRCAvatarDescriptor>();
 #endif
 /*
@@ -237,7 +239,7 @@ namespace UnityToolbarExtender.Nidonocu
                 SwitchToScene = !SwitchToScene;
             }
         }
-#if VRC_SDK_VRCSDK2 || VRC_SDK_VRCSDK3 || CVR_CCK_EXISTS
+#if VRC_SDK_VRCSDK2 || VRC_SDK_VRCSDK3 && !UDON || CVR_CCK_EXISTS
         static void OnSelectAvatarToolbarGUI()
         {
             var tex = EditorGUIUtility.IconContent(@"d_Avatar Icon").image;
