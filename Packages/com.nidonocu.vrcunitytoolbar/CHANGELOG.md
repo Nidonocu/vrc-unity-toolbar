@@ -1,6 +1,6 @@
 # Change Log
 
-### 1.1.1
+### 1.1.2
 * Fixed not working in VRC World projects
 
 ### 1.1.0

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-#if VRC_SDK_VRCSDK2 || VRC_SDK_VRCSDK3
+#if VRC_SDK_VRCSDK2 || VRC_SDK_VRCSDK3 && !UDON
 using VRC.SDK3.Avatars.Components;
 #endif
 // TODO: CCK Compatibility doesn't work with components, must be imported as a classic asset to work
