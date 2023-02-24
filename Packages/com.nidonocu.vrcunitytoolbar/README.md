@@ -7,7 +7,7 @@ Currently this is three functions, **Selection Navigation**, **Focus Scene View*
 More functions may be added over time.
 
 ## Compatibility
-This package has been tested with `Unity 2019.4.31f` and the latest *VRChat SDK* as of `2022/10/01`.
+This package has been tested with `Unity 2019.4.31f` and the latest *VRChat SDK* as of `2023/02/24`.
 
 It should function in projects both using and not using the *VRChat Creator Companion*.
 
