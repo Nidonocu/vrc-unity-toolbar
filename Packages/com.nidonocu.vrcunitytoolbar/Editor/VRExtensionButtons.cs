@@ -12,6 +12,13 @@ using ABI.CCK.Components;
 #if UNITY_EDITOR
 namespace UnityToolbarExtender.Nidonocu
 {
+    public enum AutoSelectOnPlayMode
+    {
+        None = 0,
+        Avatar = 1,
+        GestureManager = 2
+    }
+
     [InitializeOnLoad]
     public static class VRExtensionButtons
     {
