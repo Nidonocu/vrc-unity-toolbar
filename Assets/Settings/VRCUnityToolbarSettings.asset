@@ -12,7 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31a03582089df6148ab65746b3d9ae06, type: 3}
   m_Name: VRCUnityToolbarSettings
   m_EditorClassIdentifier: 
-  switchToScene: 0
-  autoSelectOnPlay: 0
-  BackIDsStack: 
+  switchToScene: 1
+  autoSelectOnPlay: 2
+  BackIDsStack: 000000005cfbffff54fbffffea340000ea340000
   ForwardIDsStack: 
+  enableSmartDuplicationOverride: 1
+  smartDuplicationRunOnce: 0
+  smartDuplicationCountsAtZero: 0
+  smartDuplicationNumberFormat: 0
+  smartDuplicationBrackets: 0
+  smartDuplicationSeparator: 1
+  smartDuplicationPromptToRename: 3
