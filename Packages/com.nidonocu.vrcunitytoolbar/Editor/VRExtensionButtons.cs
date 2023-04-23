@@ -349,7 +349,7 @@ namespace UnityToolbarExtender.Nidonocu
             EditorGUI.BeginDisabledGroup(Selection.activeObject == null);
             if (GUILayout.Button(new GUIContent(null, SmartDuplicateIcon, "Smart Duplicate"), "Command"))
             {
-                //NavigateForward();
+                SmartDuplicate.PerformDuplication();
             }
             EditorGUI.EndDisabledGroup();
         }
