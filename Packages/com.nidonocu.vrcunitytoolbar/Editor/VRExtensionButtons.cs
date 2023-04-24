@@ -20,7 +20,6 @@ namespace UnityToolbarExtender.Nidonocu
         SingleDigit = 0,
         DoubleDigit = 1,
         TripleDigit = 2,
-        Ordinals = 3
     }
 
     public enum SmartDuplicationBrackets
@@ -349,9 +348,15 @@ namespace UnityToolbarExtender.Nidonocu
             EditorGUI.BeginDisabledGroup(Selection.activeObject == null);
             if (GUILayout.Button(new GUIContent(null, SmartDuplicateIcon, "Smart Duplicate"), "Command"))
             {
-                SmartDuplicate.PerformDuplication();
+                SmartDuplicate.PerformDuplication(settings);
             }
             EditorGUI.EndDisabledGroup();
+        }
+
+        [MenuItem("Edit/Smart Duplication &d")]
+        public static void ExecuteSmartDuplication()
+        {
+            SmartDuplicate.PerformDuplication(settings);
         }
 
         static void OnSceneToolbarGUI()

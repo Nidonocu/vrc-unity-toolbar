@@ -98,9 +98,9 @@ Use the shortcut key, menu option or toolbar button to perform smart duplication
 
 Hold Shift to also rename the current item to be the first in the duplicated list.";
 
-        private static readonly GUIContent enableSmartDuplicationOverrideLabel = new GUIContent(
+        /*private static readonly GUIContent enableSmartDuplicationOverrideLabel = new GUIContent(
            "Perform Smart Duplication on Ctrl + D",
-           "When configured, pressing Ctrl + D will use Smart Duplication instead of normal Unity Duplication. Otherwise, use the shortcut Alt + D.");
+           "When configured, pressing Ctrl + D will use Smart Duplication instead of normal Unity Duplication. Otherwise, use the shortcut Alt + D.");*/
 
         private static readonly GUIContent smartDuplicationCountsAtZeroLabel = new GUIContent(
            "Start counting Smart Duplicates from Zero",
@@ -215,7 +215,7 @@ Hold Shift to also rename the current item to be the first in the duplicated lis
                     EditorGUILayout.LabelField("Smart Duplication", EditorStyles.boldLabel);
                     EditorGUILayout.LabelField(smartDuplicationExplain, EditorStyles.wordWrappedLabel);
                     EditorGUI.indentLevel++;
-                    EditorGUILayout.PropertyField(settingsObject.FindProperty(nameof(VRExtensionButtonsSettings.enableSmartDuplicationOverride)), enableSmartDuplicationOverrideLabel);
+                    //EditorGUILayout.PropertyField(settingsObject.FindProperty(nameof(VRExtensionButtonsSettings.enableSmartDuplicationOverride)), enableSmartDuplicationOverrideLabel);
                     EditorGUILayout.PropertyField(settingsObject.FindProperty(nameof(VRExtensionButtonsSettings.smartDuplicationCountsAtZero)), smartDuplicationCountsAtZeroLabel);
                     EditorGUILayout.PropertyField(settingsObject.FindProperty(nameof(VRExtensionButtonsSettings.smartDuplicationNumberFormat)), smartDuplicationNumberFormatLabel);
                     EditorGUILayout.PropertyField(settingsObject.FindProperty(nameof(VRExtensionButtonsSettings.smartDuplicationSeparator)), smartDuplicationSeparatorLabel);
