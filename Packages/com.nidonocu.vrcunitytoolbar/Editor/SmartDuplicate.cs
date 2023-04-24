@@ -130,6 +130,9 @@ namespace UnityToolbarExtender.Nidonocu
                     case SmartDuplicationSeparator.Dash:
                         newName = newName + "-";
                         break;
+                    case SmartDuplicationSeparator.Dot:
+                        newName = newName + '.';
+                        break;
                     case SmartDuplicationSeparator.Underscore:
                         newName = newName + "_";
                         break;
