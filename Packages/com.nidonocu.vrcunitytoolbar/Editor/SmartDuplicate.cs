@@ -34,6 +34,7 @@ namespace UnityToolbarExtender.Nidonocu
                             // Set Location within Hierarchy
                             duplicatedPrefab.transform.SetSiblingIndex(targetSibling.transform.GetSiblingIndex() + 1);
                             //newObject = duplicatedPrefab;
+                            Undo.RegisterCreatedObjectUndo(duplicatedPrefab, "Duplicate Prefab");
                         }
                         else
                         {
@@ -48,6 +49,7 @@ namespace UnityToolbarExtender.Nidonocu
                             // Set Location within Hierarchy
                             duplicateObject.transform.SetSiblingIndex(targetSibling.transform.GetSiblingIndex() + 1);
                             //newObject = duplicateObject;
+                            Undo.RegisterCreatedObjectUndo(duplicateObject, "Duplicate Object");
                         }
                     }
                     else
