@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31a03582089df6148ab65746b3d9ae06, type: 3}
+  m_Name: VRCUnityToolbarSettings
+  m_EditorClassIdentifier: 
+  switchToScene: 0
+  autoSelectOnPlay: 0
+  BackIDsStack: 00000000fafcffff54fbffff76faffff5cfaffff42faffff28faffff0efafffff4f9ffff76fafffff4f9fffff4f9fffff4f9ffff54fbffff7ef9ffff54f9ffff1cf9ffff54fbffffe4f8ffffe4f8ffffe4f8ffffe4f8ffffe4f8ffffe4f8ffffe4f8ffffe4f8ffffe4f8ffffe4f8ffffe4f8ffffe4f8ffffe4f8ffffe4f8ffffe4f8ffffe4f8ffffe4f8ffff54fbffff82f7ffff54fbffff82f7ffff4cf7ffff4cf7ffff4cf7ffff54fbffff2af7ffff54fbffff5c3c0000
+  ForwardIDsStack: 
+  enableSmartDuplicationOverride: 1
+  smartDuplicationRunOnce: 1
+  smartDuplicationCountsAtZero: 0
+  smartDuplicationNumberFormat: 2
+  smartDuplicationBrackets: 3
+  smartDuplicationSeparator: 2
+  smartDuplicationPromptToRename: 3

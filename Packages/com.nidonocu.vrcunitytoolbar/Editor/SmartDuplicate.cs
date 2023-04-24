@@ -93,21 +93,23 @@ namespace UnityToolbarExtender.Nidonocu
 
         public static string CreateDuplicateName(string originalName, VRExtensionButtonsSettings settings, bool isFileName = false)
         {
-            var result = Regex.Match(originalName, @"\d+");
+            var regex = new Regex(@"\d+");
+            var result = regex.Match(originalName);
             if (result.Success)
             {
-                // There is a number in the existing string, we'll just replace it with a new number in our prefered numeric format
+                // There is a number in the existing string, we'll just replace it, using the matching number of leading zeroes
                 var intValue = int.Parse(result.Value) + 1;
 
-                switch (settings.smartDuplicationNumberFormat)
+                int numberOfLeadingZeros = 0;
+                for (int i = 0; i < result.Value.Length; i++)
                 {
-                    case SmartDuplicationNumberFormat.DoubleDigit:
-                        return Regex.Replace(originalName, @"\d+", intValue.ToString("D2"));
-                    case SmartDuplicationNumberFormat.TripleDigit:
-                        return Regex.Replace(originalName, @"\d+", intValue.ToString("D3"));
-                    default:
-                        return Regex.Replace(originalName, @"\d+", intValue.ToString());
+                    if (result.Value[i] == '0')
+                        numberOfLeadingZeros++;
+                    else
+                        break;
                 }
+                
+                return regex.Replace(originalName, intValue.ToString(string.Format("D{0}", numberOfLeadingZeros + 1)), 1);
             }
             else
             {
