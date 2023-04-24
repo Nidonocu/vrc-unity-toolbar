@@ -94,9 +94,9 @@ This option of course, requires the Gesture Manager package to be installed!";
 #endif
         private static readonly string smartDuplicationExplain = @"Smart Duplication provides smarter behaviour when duplicating objects and assets in Unity.
 
-Use the shortcut key, menu option or toolbar button to perform smart duplication.
+Use the shortcut key, menu option or toolbar button to perform smart duplication.";
 
-Hold Shift to also rename the current item to be the first in the duplicated list.";
+        //Hold Shift to also rename the current item to be the first in the duplicated list.";
 
         /*private static readonly GUIContent enableSmartDuplicationOverrideLabel = new GUIContent(
            "Perform Smart Duplication on Ctrl + D",
@@ -118,14 +118,15 @@ Hold Shift to also rename the current item to be the first in the duplicated lis
            "Brackets for automatic numbering",
            "These brackets will be placed around the number when auto-numbering a duplicate.");
 
-        private static readonly GUIContent smartDuplicationPromptToRenameLabel = new GUIContent(
+        /*private static readonly GUIContent smartDuplicationPromptToRenameLabel = new GUIContent(
            "Prompty to Rename after Duplicating",
-           "If configured, the editor will automatically enter renaming mode when duplicating to let you change the suggested name.");
+           "If configured, the editor will automatically enter renaming mode when duplicating to let you change the suggested name.");*/
 
         private static readonly string exampleHelp = @"Here are some examples of how automatic duplication will name your duplicates based on these settings:
-* {0}
-* {1}
-* {2}";
+* {0} will be duplicated to {1}
+* {2} will be duplicated to {3}
+* {4}, in the Asset Database, will be duplicated to {5}
+Note: Some symbol choices can not be used for Asset duplication and alternatives will be used.";
 
         private static readonly string tooltipHelp =
             @"Hover over any option's label for more information!";
@@ -220,8 +221,11 @@ Hold Shift to also rename the current item to be the first in the duplicated lis
                     EditorGUILayout.PropertyField(settingsObject.FindProperty(nameof(VRExtensionButtonsSettings.smartDuplicationNumberFormat)), smartDuplicationNumberFormatLabel);
                     EditorGUILayout.PropertyField(settingsObject.FindProperty(nameof(VRExtensionButtonsSettings.smartDuplicationSeparator)), smartDuplicationSeparatorLabel);
                     EditorGUILayout.PropertyField(settingsObject.FindProperty(nameof(VRExtensionButtonsSettings.smartDuplicationBrackets)), smartDuplicationBracketsLabel);
-                    EditorGUILayout.PropertyField(settingsObject.FindProperty(nameof(VRExtensionButtonsSettings.smartDuplicationPromptToRename)), smartDuplicationPromptToRenameLabel);
-                    EditorGUILayout.HelpBox(string.Format(exampleHelp, "test", "test2", "test3"), MessageType.Info);
+                    //EditorGUILayout.PropertyField(settingsObject.FindProperty(nameof(VRExtensionButtonsSettings.smartDuplicationPromptToRename)), smartDuplicationPromptToRenameLabel);
+                    var example1 = SmartDuplicate.CreateDuplicateName("ExampleObject", settings);
+                    var example2 = SmartDuplicate.CreateDuplicateName("Object7Example", settings);
+                    var example3 = SmartDuplicate.CreateDuplicateName("MaterialAsset", settings, true);
+                    EditorGUILayout.HelpBox(string.Format(exampleHelp, "ExampleObject", example1, "Object7Example", example2, "MaterialAsset", example3), MessageType.Info);
                     EditorGUI.indentLevel--;
 
                     DrawUILine(Color.gray);
