@@ -37,9 +37,10 @@ namespace UnityToolbarExtender.Nidonocu
         Space = 1,
         Pipe = 2,
         Dash = 3,
-        Underscore = 4,
-        SpacedDash = 5,
-        SpacedPipe = 6,
+        Dot = 4,
+        Underscore = 5,
+        SpacedDash = 6,
+        SpacedPipe = 7,
     }
 
     public enum SmartDuplicationPromptToRename
