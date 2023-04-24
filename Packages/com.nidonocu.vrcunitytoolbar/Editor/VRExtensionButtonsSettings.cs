@@ -138,7 +138,7 @@ Note: Some symbol choices can not be used for Asset duplication and alternatives
         /// <summary>
         /// URL for this package's home
         /// </summary>
-        //const string PackageURL = "https://github.com/Nidonocu";
+        const string PackageURL = "https://nidonocu.github.io/vrc-unity-toolbar/";
 
         /// <summary>
         /// URL for developer's profile
@@ -230,13 +230,23 @@ Note: Some symbol choices can not be used for Asset duplication and alternatives
 
                     DrawUILine(Color.gray);
 
+                    EditorGUILayout.BeginHorizontal();
+
+                    if (GUILayout.Button(new GUIContent("Package Homepage", null, PackageURL), GUILayout.Height(48)))
+                    {
+                        Application.OpenURL(PackageURL);
+                    }
                     if (GUILayout.Button(new GUIContent("      Nidonocu", Nido_Logo, ProfileURL), GUILayout.Height(48)))
                     {
                         Application.OpenURL(ProfileURL);
                     }
+
+                    EditorGUILayout.EndHorizontal();
+
+
                     EditorGUILayout.Space(20f);
 
-                    EditorGUILayout.LabelField("VRC Unity Toolbar created by Nidonocu © 2023", EditorStyles.boldLabel);
+                    EditorGUILayout.LabelField("VRC Unity Toolbar - Version 2.0.0 - Created by Nidonocu © 2023", EditorStyles.boldLabel);
 
                     EditorGUIUtility.labelWidth = 0f;
 

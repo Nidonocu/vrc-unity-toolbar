@@ -348,7 +348,7 @@ namespace UnityToolbarExtender.Nidonocu
             EditorGUI.BeginDisabledGroup(Selection.activeObject == null);
             if (GUILayout.Button(new GUIContent(null, SmartDuplicateIcon, "Smart Duplicate"), "Command"))
             {
-                SmartDuplicate.PerformDuplication(settings);
+                ExecuteSmartDuplication();
             }
             EditorGUI.EndDisabledGroup();
         }
@@ -356,6 +356,18 @@ namespace UnityToolbarExtender.Nidonocu
         [MenuItem("Edit/Smart Duplication &d")]
         public static void ExecuteSmartDuplication()
         {
+            if (!settingsObject.FindProperty(nameof(VRExtensionButtonsSettings.smartDuplicationRunOnce)).boolValue)
+            {
+                EditorUtility.DisplayDialog("Smart Duplication",
+                    @"You've just used the Smart Duplication feature of the VRC Unity Toolbar for the first time in this project. 
+
+Just so you know, you can change the options of how duplicates are automatically numbered under Edit > Project Settings > VRC Unity Toolbar.
+
+This dialog won't appear again in this project, sorry for the interruption!", "OK");
+                settingsObject.FindProperty(nameof(VRExtensionButtonsSettings.smartDuplicationRunOnce)).boolValue = true;
+                settingsObject.ApplyModifiedProperties();
+                EditorUtility.SetDirty(settings);
+            }
             SmartDuplicate.PerformDuplication(settings);
         }
 
