@@ -4,76 +4,122 @@ using UnityEngine;
 #if VRC_SDK_VRCSDK2 || VRC_SDK_VRCSDK3 && !UDON
 using VRC.SDK3.Avatars.Components;
 #endif
-// TODO: CCK Compatibility doesn't work with components, must be imported as a classic asset to work
-/*#if CVR_CCK_EXISTS
-using ABI.CCK.Components;
-#endif*/
 
 #if UNITY_EDITOR
 namespace UnityToolbarExtender.Nidonocu
 {
+    public enum AutoSelectOnPlayMode
+    {
+        None = 0,
+        Avatar = 1,
+        GestureManager = 2
+    }
+
+    public enum SmartDuplicationNumberFormat
+    {
+        SingleDigit = 0,
+        DoubleDigit = 1,
+        TripleDigit = 2,
+    }
+
+    public enum SmartDuplicationBrackets
+    {
+        None = 0,
+        Rounded = 1,
+        Square = 2,
+        Curly = 3,
+        Angular = 4
+    }
+
+    public enum SmartDuplicationSeparator
+    {
+        None = 0,
+        Space = 1,
+        Pipe = 2,
+        Dash = 3,
+        Dot = 4,
+        Underscore = 5,
+        SpacedDash = 6,
+        SpacedPipe = 7,
+    }
+
+    public enum SmartDuplicationPromptToRename
+    {
+        Never = 0,
+        OnlyAssets = 1,
+        OnlyGameObjects = 2,
+        Everything = 3
+    }
+
     [InitializeOnLoad]
     public static class VRExtensionButtons
     {
-        static bool m_switchToScene;
-
-        static bool SwitchToScene
-        {
-            get { return m_switchToScene; }
-            set
-            {
-                m_switchToScene = value;
-                EditorPrefs.SetBool("SwitchToScene", value);
-            }
-        }
-
-#if VRC_SDK_VRCSDK2 || VRC_SDK_VRCSDK3 && !UDON || CVR_CCK_EXISTS
-        static bool m_selectAvatar;
-
-        static bool SelectAvatar
-        {
-            get { return m_selectAvatar; }
-            set
-            {
-                m_selectAvatar = value;
-                EditorPrefs.SetBool("SelectAvatar", value);
-            }
-        }
-#endif
-
         static List<Object> BackStack = new List<Object>();
 
         static List<Object> ForwardStack = new List<Object>();
 
         static Object CurrentSelection = null;
 
-#if VRC_SDK_VRCSDK2 || VRC_SDK_VRCSDK3 && !UDON || CVR_CCK_EXISTS
+        static readonly Texture BackIcon = EditorGUIUtility.IconContent(@"ArrowNavigationLeft").image;
+
+        static readonly Texture ForwardIcon = EditorGUIUtility.IconContent(@"ArrowNavigationRight").image;
+
+        static readonly Texture SmartDuplicateIcon = Resources.Load<Texture>("SmartDuplicate");
+
+        static readonly Texture SceneIcon = EditorGUIUtility.IconContent(@"UnityEditor.SceneView").image;
+
+#if VRC_SDK_VRCSDK2 || VRC_SDK_VRCSDK3 && !UDON
         static Object lastSelectedObjectBeforePlay = null;
+
+        static readonly Texture AvatarIcon = EditorGUIUtility.IconContent(@"d_Avatar Icon").image;
+        static readonly Texture VRCMenuIcon = Resources.Load<Texture>("VRC_Menu_Icon");
+
+        static readonly string GestureManagerAssemblyQualifiedTypeName = "BlackStartX.GestureManager.GestureManager, vrchat.blackstartx.gesture-manager, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null";
 #endif
 
         static bool NavigatingStack = false;
 
+        public static VRExtensionButtonsSettings settings;
+
+        public static SerializedObject settingsObject;
+
+        static bool? packageStatus = null;
+
         static VRExtensionButtons()
         {
+            // Remove old editor prefs
+            EditorPrefs.DeleteKey("SwitchToScene");
+            EditorPrefs.DeleteKey("SelectAvatar");
+
+            settings = VRExtensionButtonsSettings.GetOrCreateSettings();
+            settingsObject = new SerializedObject(settings);
+
             System.Action selectionAction = OnSelectionChanged;
             Selection.selectionChanged += selectionAction;
             ToolbarExtender.LeftToolbarGUI.Add(OnBackGUI);
             ToolbarExtender.LeftToolbarGUI.Add(OnForwardGUI);
+            ToolbarExtender.LeftToolbarGUI.Add(OnDuplicateSelectionGUI);
 
-            m_switchToScene = EditorPrefs.GetBool("SwitchToScene", false);
             EditorApplication.playModeStateChanged += OnPlayModeChanged;
             ToolbarExtender.RightToolbarGUI.Add(OnSceneToolbarGUI);
 
-#if VRC_SDK_VRCSDK2 || VRC_SDK_VRCSDK3 && !UDON || CVR_CCK_EXISTS
-            m_selectAvatar = EditorPrefs.GetBool("SelectAvatar", false);
+#if VRC_SDK_VRCSDK2 || VRC_SDK_VRCSDK3 && !UDON
+            if (packageStatus == null)
+            {
+                packageStatus = CheckInstalledPackage.IsPackageInstalled(CheckInstalledPackage.GestureManagerPackageName);
+            }
             EditorApplication.pauseStateChanged += OnPauseChanged;
             ToolbarExtender.RightToolbarGUI.Add(OnSelectAvatarToolbarGUI);
+            if (packageStatus == true)
+            {
+                ToolbarExtender.RightToolbarGUI.Add(OnSelectGestureManagerToolbarGUI);
+            }
 #endif
         }
 
         static void OnPauseChanged(PauseState obj)
         {
-            if (SwitchToScene && obj == PauseState.Unpaused)
+            if (settingsObject.FindProperty(nameof(VRExtensionButtonsSettings.switchToScene)).boolValue && obj == PauseState.Unpaused)
             {
                 // Not sure why, but this must be delayed
                 EditorApplication.delayCall += EditorWindow.FocusWindowIfItsOpen<SceneView>;
@@ -90,41 +136,28 @@ namespace UnityToolbarExtender.Nidonocu
                 return;
             }
 
-            if (SwitchToScene && obj == PlayModeStateChange.EnteredPlayMode)
+            if (settingsObject.FindProperty(nameof(VRExtensionButtonsSettings.switchToScene)).boolValue && obj == PlayModeStateChange.EnteredPlayMode)
             {
                 EditorWindow.FocusWindowIfItsOpen<SceneView>();
             }
 
-#if VRC_SDK_VRCSDK2 || VRC_SDK_VRCSDK3 && !UDON || CVR_CCK_EXISTS
-            if (SelectAvatar && obj == PlayModeStateChange.EnteredPlayMode)
+#if VRC_SDK_VRCSDK2 || VRC_SDK_VRCSDK3 && !UDON
+            var currentAutoSelectionMode = settingsObject.FindProperty(nameof(VRExtensionButtonsSettings.autoSelectOnPlay)).enumValueIndex;
+
+            // Avatar selected and going to Play mode
+            if (currentAutoSelectionMode == (int)AutoSelectOnPlayMode.Avatar && obj == PlayModeStateChange.EnteredPlayMode)
             {
                 var selected = Selection.activeTransform;
 
                 if (selected != null)
                 {
                     Component childDesc = null;
-#if VRC_SDK_VRCSDK2 || VRC_SDK_VRCSDK3 && !UDON
                     childDesc = selected.gameObject.GetComponentInChildren<VRCAvatarDescriptor>();
-#endif
-/*
-#if CVR_CCK_EXISTS
-					if (childDesc == null)
-                        childDesc = selected.gameObject.GetComponentInChildren<CVRAvatar>();
-#endif
-*/
                     if (childDesc == null)
                     {
                         // If no AVD, check parent objects for one and select that
                         Component parentDesc = null;
-#if VRC_SDK_VRCSDK2 || VRC_SDK_VRCSDK3 && !UDON
                         parentDesc = selected.gameObject.GetComponentInParent<VRCAvatarDescriptor>();
-#endif
-/*
-#if CVR_CCK_EXISTS
-                        if (parentDesc == null)
-                            parentDesc = selected.gameObject.GetComponentInParent<CVRAvatar>();
-#endif
-*/
                         if (parentDesc != null)
                         {
                             lastSelectedObjectBeforePlay = Selection.activeObject;
@@ -140,15 +173,7 @@ namespace UnityToolbarExtender.Nidonocu
                 }
                 // If null, find the first active object with an AV Descriptor
                 Object[] presentAVDs = new Object[0];
-#if VRC_SDK_VRCSDK2 || VRC_SDK_VRCSDK3 && !UDON
                 presentAVDs = Object.FindObjectsOfType<VRCAvatarDescriptor>();
-#endif
-/*
-#if CVR_CCK_EXISTS
-                if (presentAVDs.Length == 0)
-				    presentAVDs = Object.FindObjectsOfType<CVRAvatar>();
-#endif
-*/
                 foreach (Component presentAVD in presentAVDs)
                 {
                     if (presentAVD.gameObject.activeInHierarchy)
@@ -159,7 +184,36 @@ namespace UnityToolbarExtender.Nidonocu
                     }
                 }
             }
-            if (SelectAvatar && obj == PlayModeStateChange.EnteredEditMode)
+            // GM selected and going to Play mode
+            if (currentAutoSelectionMode == (int)AutoSelectOnPlayMode.GestureManager && obj == PlayModeStateChange.EnteredPlayMode)
+            {
+                if (packageStatus == null)
+                {
+                    packageStatus = CheckInstalledPackage.IsPackageInstalled(CheckInstalledPackage.GestureManagerPackageName);
+                }
+                if (packageStatus == true)
+                {
+                    var selected = Selection.activeTransform;
+                    lastSelectedObjectBeforePlay = Selection.activeObject;
+
+                    var GestureManagerObj = Object.FindObjectOfType(System.Type.GetType(GestureManagerAssemblyQualifiedTypeName));
+                    if (GestureManagerObj == null)
+                    {
+                        EditorApplication.ExecuteMenuItem("Tools/Gesture Manager Emulator");
+                        GestureManagerObj = Object.FindObjectOfType(System.Type.GetType(GestureManagerAssemblyQualifiedTypeName));
+                        if (GestureManagerObj == null)
+                        {
+                            Debug.LogError("Unable to create Gesture Manager object!");
+                        }
+                    }
+                    else
+                    {
+                        Selection.activeObject = GestureManagerObj;
+                    }
+                }
+            }
+            // Returning to Edit mode
+            if (currentAutoSelectionMode != (int)AutoSelectOnPlayMode.None && obj == PlayModeStateChange.EnteredEditMode)
             {
                 if (lastSelectedObjectBeforePlay != null)
                 {
@@ -176,13 +230,35 @@ namespace UnityToolbarExtender.Nidonocu
         {
             if (!NavigatingStack)
             {
-                BackStack.Add(CurrentSelection);
-                if (BackStack.Count > MaximumStackSize)
+                var backIDArray = settingsObject.FindProperty(nameof(VRExtensionButtonsSettings.BackIDsStack));
+                backIDArray.arraySize++;
+                int newIndex = backIDArray.arraySize - 1;
+                var newIDItem = backIDArray.GetArrayElementAtIndex(newIndex);
+                if (CurrentSelection != null)
+                {
+                    newIDItem.intValue = CurrentSelection.GetInstanceID();
+                }
+
+                //BackStack.Add(CurrentSelection);
+
+                if (backIDArray.arraySize > MaximumStackSize)
+                {
+                    backIDArray.DeleteArrayElementAtIndex(0);
+                }
+
+                /*if (BackStack.Count > MaximumStackSize)
                 {
                     BackStack.RemoveAt(0);
-                }
-                ForwardStack.Clear();
+                }*/
+
+                var forwardIDArray = settingsObject.FindProperty(nameof(VRExtensionButtonsSettings.ForwardIDsStack));
+                forwardIDArray.ClearArray();
+
+                //ForwardStack.Clear();
                 CurrentSelection = Selection.activeObject;
+
+                settingsObject.ApplyModifiedProperties();
+                EditorUtility.SetDirty(settings);
             }
             else { NavigatingStack = false; }
         }
@@ -190,26 +266,66 @@ namespace UnityToolbarExtender.Nidonocu
         static void NavigateBack()
         {
             NavigatingStack = true;
-            Selection.activeObject = BackStack[BackStack.Count - 1];
-            ForwardStack.Add(CurrentSelection);
-            BackStack.RemoveAt(BackStack.Count - 1);
+            var backIDArray = settingsObject.FindProperty(nameof(VRExtensionButtonsSettings.BackIDsStack));
+            int index = backIDArray.arraySize - 1;
+            var iDItem = backIDArray.GetArrayElementAtIndex(index).intValue;
+            Selection.activeObject = EditorUtility.InstanceIDToObject(iDItem);
+
+            //Selection.activeObject = BackStack[BackStack.Count - 1];
+            //ForwardStack.Add(CurrentSelection);
+
+            var forwardIDArray = settingsObject.FindProperty(nameof(VRExtensionButtonsSettings.ForwardIDsStack));
+            forwardIDArray.arraySize++;
+            int newIndex = forwardIDArray.arraySize - 1;
+            var newIDItem = forwardIDArray.GetArrayElementAtIndex(newIndex);
+            if (CurrentSelection != null)
+            {
+                newIDItem.intValue = CurrentSelection.GetInstanceID();
+            }
+
+            backIDArray.DeleteArrayElementAtIndex(backIDArray.arraySize - 1);
+
+            //BackStack.RemoveAt(BackStack.Count - 1);
             CurrentSelection = Selection.activeObject;
+
+            settingsObject.ApplyModifiedProperties();
+            EditorUtility.SetDirty(settings);
         }
 
         static void NavigateForward()
         {
             NavigatingStack = true;
-            Selection.activeObject = ForwardStack[ForwardStack.Count - 1];
-            BackStack.Add(CurrentSelection);
-            ForwardStack.RemoveAt(ForwardStack.Count - 1);
+            var forwardIDArray = settingsObject.FindProperty(nameof(VRExtensionButtonsSettings.ForwardIDsStack));
+            int index = forwardIDArray.arraySize - 1;
+            var iDItem = forwardIDArray.GetArrayElementAtIndex(index).intValue;
+            Selection.activeObject = EditorUtility.InstanceIDToObject(iDItem);
+
+            //Selection.activeObject = ForwardStack[ForwardStack.Count - 1];
+
+            var backIDArray = settingsObject.FindProperty(nameof(VRExtensionButtonsSettings.BackIDsStack));
+            backIDArray.arraySize++;
+            int newIndex = backIDArray.arraySize - 1;
+            var newIDItem = backIDArray.GetArrayElementAtIndex(newIndex);
+            if (CurrentSelection != null)
+            {
+                newIDItem.intValue = CurrentSelection.GetInstanceID();
+            }
+
+            //BackStack.Add(CurrentSelection);
+            forwardIDArray.DeleteArrayElementAtIndex(forwardIDArray.arraySize - 1);
+
+            //ForwardStack.RemoveAt(ForwardStack.Count - 1);
             CurrentSelection = Selection.activeObject;
+
+            settingsObject.ApplyModifiedProperties();
+            EditorUtility.SetDirty(settings);
         }
 
         static void OnBackGUI()
         {
-            var tex = EditorGUIUtility.IconContent(@"ArrowNavigationLeft").image;
-            EditorGUI.BeginDisabledGroup(BackStack.Count == 0);
-            if (GUILayout.Button(new GUIContent(null, tex, "Navigate to previous selection"), "Command"))
+            var backIDArray = settingsObject.FindProperty(nameof(VRExtensionButtonsSettings.BackIDsStack));
+            EditorGUI.BeginDisabledGroup(backIDArray.arraySize == 0);// BackStack.Count == 0);
+            if (GUILayout.Button(new GUIContent(null, BackIcon, "Navigate to previous selection"), "Command"))
             {
                 NavigateBack();
             }
@@ -218,38 +334,98 @@ namespace UnityToolbarExtender.Nidonocu
 
         static void OnForwardGUI()
         {
-            var tex = EditorGUIUtility.IconContent(@"ArrowNavigationRight").image;
-            EditorGUI.BeginDisabledGroup(ForwardStack.Count == 0);
-            if (GUILayout.Button(new GUIContent(null, tex, "Navigate to next selection"), "Command"))
+            var forwardIDArray = settingsObject.FindProperty(nameof(VRExtensionButtonsSettings.ForwardIDsStack));
+            EditorGUI.BeginDisabledGroup(forwardIDArray.arraySize == 0);//ForwardStack.Count == 0);
+            if (GUILayout.Button(new GUIContent(null, ForwardIcon, "Navigate to next selection"), "Command"))
             {
                 NavigateForward();
             }
             EditorGUI.EndDisabledGroup();
         }
 
+        static void OnDuplicateSelectionGUI()
+        {
+            GUILayout.Space(10f);
+            EditorGUI.BeginDisabledGroup(Selection.activeObject == null);
+            if (GUILayout.Button(new GUIContent(null, SmartDuplicateIcon, "Smart Duplicate"), "Command"))
+            {
+                ExecuteSmartDuplication();
+            }
+            EditorGUI.EndDisabledGroup();
+        }
+
+        [MenuItem("Edit/Smart Duplication &d")]
+        public static void ExecuteSmartDuplication()
+        {
+            if (!settingsObject.FindProperty(nameof(VRExtensionButtonsSettings.smartDuplicationRunOnce)).boolValue)
+            {
+                EditorUtility.DisplayDialog("Smart Duplication",
+                    @"You've just used the Smart Duplication feature of the VRC Unity Toolbar for the first time in this project. 
+
+Just so you know, you can change the options of how duplicates are automatically numbered under Edit > Project Settings > VRC Unity Toolbar.
+
+This dialog won't appear again in this project, sorry for the interruption!", "OK");
+                settingsObject.FindProperty(nameof(VRExtensionButtonsSettings.smartDuplicationRunOnce)).boolValue = true;
+                settingsObject.ApplyModifiedProperties();
+                EditorUtility.SetDirty(settings);
+            }
+            SmartDuplicate.PerformDuplication(settings);
+        }
+
         static void OnSceneToolbarGUI()
         {
-            var tex = EditorGUIUtility.IconContent(@"UnityEditor.SceneView").image;
-
             GUI.changed = false;
 
-            GUILayout.Toggle(m_switchToScene, new GUIContent(null, tex, "Focus SceneView when entering play mode"), "Command");
+            GUILayout.Toggle(settingsObject.FindProperty(nameof(VRExtensionButtonsSettings.switchToScene)).boolValue, new GUIContent(null, SceneIcon, "Focus SceneView when entering play mode"), "Command");
             if (GUI.changed)
             {
-                SwitchToScene = !SwitchToScene;
+                settingsObject.FindProperty(nameof(VRExtensionButtonsSettings.switchToScene)).boolValue = !settingsObject.FindProperty(nameof(VRExtensionButtonsSettings.switchToScene)).boolValue;
+                settingsObject.ApplyModifiedProperties();
+                EditorUtility.SetDirty(settings);
             }
         }
-#if VRC_SDK_VRCSDK2 || VRC_SDK_VRCSDK3 && !UDON || CVR_CCK_EXISTS
+#if VRC_SDK_VRCSDK2 || VRC_SDK_VRCSDK3 && !UDON
         static void OnSelectAvatarToolbarGUI()
         {
-            var tex = EditorGUIUtility.IconContent(@"d_Avatar Icon").image;
-
             GUI.changed = false;
 
-            GUILayout.Toggle(m_selectAvatar, new GUIContent(null, tex, "Select the active avatar when entering play mode"), "Command");
+            var currentAutoSelectionMode = settingsObject.FindProperty(nameof(VRExtensionButtonsSettings.autoSelectOnPlay)).enumValueIndex;
+
+            GUILayout.Toggle(currentAutoSelectionMode == ((int)AutoSelectOnPlayMode.Avatar), new GUIContent(null, AvatarIcon, "Select the active avatar when entering play mode"), "Command");
             if (GUI.changed)
             {
-                SelectAvatar = !SelectAvatar;
+                if (currentAutoSelectionMode == ((int)AutoSelectOnPlayMode.Avatar))
+                {
+                    settingsObject.FindProperty(nameof(VRExtensionButtonsSettings.autoSelectOnPlay)).enumValueIndex = (int)AutoSelectOnPlayMode.None;
+                }
+                else
+                {
+                    settingsObject.FindProperty(nameof(VRExtensionButtonsSettings.autoSelectOnPlay)).enumValueIndex = (int)AutoSelectOnPlayMode.Avatar;
+                }
+                settingsObject.ApplyModifiedProperties();
+                EditorUtility.SetDirty(settings);
+            }
+        }
+
+        static void OnSelectGestureManagerToolbarGUI()
+        {
+            GUI.changed = false;
+
+            var currentAutoSelectionMode = settingsObject.FindProperty(nameof(VRExtensionButtonsSettings.autoSelectOnPlay)).enumValueIndex;
+
+            GUILayout.Toggle(currentAutoSelectionMode == ((int)AutoSelectOnPlayMode.GestureManager), new GUIContent(null, VRCMenuIcon, "Select the gesture manager control object when entering play mode"), "Command");
+            if (GUI.changed)
+            {
+                if (currentAutoSelectionMode == ((int)AutoSelectOnPlayMode.GestureManager))
+                {
+                    settingsObject.FindProperty(nameof(VRExtensionButtonsSettings.autoSelectOnPlay)).enumValueIndex = (int)AutoSelectOnPlayMode.None;
+                }
+                else
+                {
+                    settingsObject.FindProperty(nameof(VRExtensionButtonsSettings.autoSelectOnPlay)).enumValueIndex = (int)AutoSelectOnPlayMode.GestureManager;
+                }
+                settingsObject.ApplyModifiedProperties();
+                EditorUtility.SetDirty(settings);
             }
         }
 #endif

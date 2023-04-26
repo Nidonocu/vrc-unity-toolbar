@@ -1,5 +1,13 @@
 # Change Log
 
+### 2.0.0
+* Added support for switching to the Gesture Manager object in avatar projects
+* Back and Forward selection stacks are now preserved between rebuilds and sessions
+* Settings are now stored per-project rather than shared between all Unity projects
+* Added Smart Duplication feature for duplicating objects with better automatic numbering and formatting
+* Added settings panel to the Project settings window
+* Updated Package for new VCC Community Repos
+
 ### 1.1.3
 * Marked Manifest as supporting all 3.1.* versions
 

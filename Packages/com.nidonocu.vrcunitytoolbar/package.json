@@ -1,13 +1,14 @@
 {
   "name": "com.nidonocu.vrcunitytoolbar",
   "displayName": "VRC Unity Toolbar",
-  "version": "1.1.3",
+  "version": "2.0.0",
   "unity": "2019.4",
-  "description": "This package adds additional buttons to the Unity Editor's Toolbar that\nremoves the need to perform various frequent actions done when building\navatars and worlds in VR Chat.",
+  "description": "This package adds additional buttons to the Unity Editor's Toolbar that removes the need to perform various frequent actions done when building avatars and worlds in VR Chat.",
   "gitDependencies": {},
   "vpmDependencies": {
     "com.vrchat.base": "~3.1.7"
   },
+  "keywords":["toolbar", "buttons", "duplication", "gesture manager", "gesture", "manager", "selection", "testing", "scene"],
   "legacyFolders": {},
   "legacyFiles": {},
   "localPath": "P:\\Nidonocu\\VRC Projects\\vrc-unity-toolbar\\Packages\\com.nidonocu.vrcunitytoolbar",
@@ -16,5 +17,6 @@
     "name": "Nidonocu",
     "email": "nidonocu@gmail.com",
     "url": "https://nidonocu.com"
-  }
+  },
+  "documentationUrl": "https://nidonocu.github.io/vrc-unity-toolbar/"
 }
