@@ -16,11 +16,32 @@ This package has been tested with `Unity 2019.4.31f` and the latest *VRChat SDK*
 
 It should function in projects both using and not using the *VRChat Creator Companion*.
 
-## Installing
-At the moment VRChat has not yet launched their community or curated packages program, so you will need to install (and update!) the package manually.
+## Important Note about Updating
+If you previously installed an older version (`1.x.x`) of this package, it is recommended you first delete the entry for the repository within your User Packages if you added it to the VCC that way, before using the new Community Repository installation method below.
 
-### VRChat Creator Companion
-If you are using the [VRChat Creator Companion](https://vcc.docs.vrchat.com/), you can load this package as a **User Package** so you can then install it in any of your projects.
+You can do this by, within the VCC, going to **Settings** > **Packages**, scrolling to the bottom and clicking the **(-)** (Remove) button beside the `com.nidonocu.vrcunitytoolbar-1.x.x` entry under **User Packages**.
+
+Updates to this package will be automatically installable via the VCC using this new Community Repository feature.
+
+## Installing
+The most easy way to install this package's listing to the [VRChat Creator Companion](https://vcc.docs.vrchat.com/) using the Community Repository feature.
+
+### Automatic Community Repository - (Recommended)
+1. Click the big **Add Package Listing** button below if you're viewing this on the website or navigate to the [Virtual Gryphon Packages](https://nidonocu.github.io/Virtual-Gryphon-Packages/) page.
+2. Click the **Add to VCC** button at the package listing website.
+3. If prompted by your web-browser, click **Open** on the pop-up confirmation that appears.
+4. In the VRChat Creator Companion, a confirmation dialog will have appeared. Click **I Understand, Add Repository**.
+5. Make sure the checkbox next to the new **Virtual Gryphon Packages** entry is checked.
+
+Now you can install this package in to any project by doing the following:
+1. Click the **Manage Project** project button for your project in the VRChat Creator Companion.
+2. Make sure in the **Selected Repos** drop-down in the top right of the window, **Virtual Gryphon Packages** is enabled.
+3. Scroll down the packages and find **VRC Unity Toolbar**, click the **(+)** (Add) button.
+4. Open your project and the package will be installed.
+
+### Manual Local Package Installation (Not Recommended)
+
+This is the old method of adding this package to the VCC prior to the release of the Community Repository feature. Using this method you can load this package as a **User Package** so you can then install it in any of your projects, but it will not be automatically updated.
 
 1. Download the **ZIP** version of the package using the buttons below if you're viewing this on the website or from the [releases page](https://github.com/Nidonocu/vrc-unity-toolbar/releases).
 2. Extract this ZIP file to a long term storage location where you keep other downloaded tools. This should be named `vrc-unity-toolbar`.
@@ -30,19 +51,19 @@ If you are using the [VRChat Creator Companion](https://vcc.docs.vrchat.com/), y
 
 Once added, you can then install this package on to any project:
 
-1. Access the page for your project in the VRChat Creator Companion.
-2. Make sure in the sources drop-down in the top right of the window, **Local User Packages** is enabled.
-3. Scroll down the packages and find **VRC Unity Toolbar**, click **Add**.
+1. Click the **Manage Project** project button for your project in the VRChat Creator Companion.
+2. Make sure in the **Selected Repos** drop-down in the top right of the window, **Local User Packages** is enabled.
+3. Scroll down the packages and find **VRC Unity Toolbar**, click the **(+)** (Add) button.
 4. Open your project and the package will be installed.
 
-### Standard Unity Package
+### Manual Standard Unity Package
 
-If you are not using the VRChat Creator Companion in a classic project, you can load this package from a file.
+If you are not using the VRChat Creator Companion in a classic project, you can load this package from a file. This will not be able to automatically update and you should get your project updated to use the VCC as soon as possible!
 
 1. Download the **Unitypackage** version of the package using the buttons below if you're viewing this on the website or from the [releases page](https://github.com/Nidonocu/vrc-unity-toolbar/releases).
 2. Open your project in Unity.
 3. From the **Assets** menu, choose **Import Package** and then **Custom Package**.
-4. Find the Unitypackage file you downloaded (`com.nidonocu.vrcunitytoolbar-1.0.0.unitypackage` for example), select it and the click **Open**.
+4. Find the Unitypackage file you downloaded (`com.nidonocu.vrcunitytoolbar-2.0.0.unitypackage` for example), select it and the click **Open**.
 5. Ensure all items are selected and then click the **Import** button to complete the Install.
 
 ## How to Use
