@@ -111,7 +111,9 @@
 
     <footer class="mt-auto text-white-50">
         <p><img src="nidonocu_vr_logo.png" alt="Nidonocu Logo" class="img-logo"/></p>
-        <p>{{package.displayName}} by <a href="{{package.author.url}}" class="text-white">{{package.author.name}}</a>.</p>
+        {{~ if package.author; ~}}
+            <p>{{package.displayName}} by <a href="{{package.author.url}}" class="text-white">{{package.author.name}}</a>.</p>
+        {{~ end; ~}}
         <p><i class="fa-brands fa-twitter"></i> <a href="http://twitter.com/nidonocu">@nidonocu</a></p>
     </footer>
     {{~ end; ~}}
