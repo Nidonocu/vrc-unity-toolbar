@@ -143,7 +143,7 @@ Note: Some symbol choices can not be used for Asset duplication and alternatives
         /// <summary>
         /// URL for developer's profile
         /// </summary>
-        const string ProfileURL = "https://github.com/Nidonocu";
+        const string ProfileURL = "https://nidonocu.github.io/Virtual-Gryphon-Packages/";
 
         static bool? packageStatus = null;
 
