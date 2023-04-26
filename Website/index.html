@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="author" content="{manifest.author}">
-    <title>{{manifest.displayName}}</title>
+    <meta name="author" content="{{listingInfo.Author.Name}}">
+    <title>{{listingInfo.Name}}</title>
     
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
 
@@ -77,10 +77,11 @@
     <header class="mb-auto">
     </header>
 
+    {{~ for package in packages; ~}}
     <main class="px-3">
-        <h1>{{manifest.displayName}}</h1>
-        <h4>{{manifest.name}} {{manifest.version}}</h4>
-        <p class="lead">{{manifest.description}}</p>
+        <h1>{{package.DisplayName}}</h1>
+        <h4>{{package.name}} {{package.version}}</h4>
+        <p class="lead">{{package.description}}</p>
         <div id="accordion" class="my-2">
             <div class="card text-white bg-secondary">
               <div class="card-header" id="readmeHeading">
@@ -99,20 +100,21 @@
             </div>
         </div>
         <p class="lead">
-            <a href="{{assets.zip}}" class="btn btn-success"><i class="fa-regular fa-file-zipper"></i> Download Zip</a>
-            <a href="{{assets.unityPackage}}" class="btn btn-dark"><i class="fa-brands fa-unity"></i> Download Unitypackage</a><br />
+            <a href="index.json" class="btn btn-success btn-lg"><i class="fa-solid fa-circle-plus"></i> Add Package Listing</a>
         </p>
         <p class="lead">
-            <a href="index.json" class="btn btn-primary"><i class="fa-regular fa-file-code"></i> View Raw Listing</a>
+            <a href="{{package.ZipUrl}}" class="btn btn-primary"><i class="fa-regular fa-file-zipper"></i> Download Zip</a>
+            <a href="{{package.UnityPackage}}" class="btn btn-dark"><i class="fa-brands fa-unity"></i> Download Unitypackage</a><br />
         </p>
         <p class="lead"><img src="LeftUI.png" alt="The navigation UI"/> <img src="UI.png" alt="The toolbar UI"/></p>
     </main>
 
     <footer class="mt-auto text-white-50">
         <p><img src="nidonocu_vr_logo.png" alt="Nidonocu Logo" class="img-logo"/></p>
-        <p>{{manifest.displayName}} by <a href="{{manifest.author.url}}" class="text-white">{{manifest.author.name}}</a>.</p>
+        <p>{{package.displayName}} by <a href="{{package.author.url}}" class="text-white">{{package.author.name}}</a>.</p>
         <p><i class="fa-brands fa-twitter"></i> <a href="http://twitter.com/nidonocu">@nidonocu</a></p>
     </footer>
+    {~ end; ~ }
 </div>
 <script src="https://cdn.jsdelivr.net/npm/showdown@2.1.0/dist/showdown.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
