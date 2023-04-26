@@ -1,7 +1,7 @@
 name: Build Repo Listing
 
 env:
-  CurrentPackageName: com.nidonocu.vrc-unity-toolbar
+  CurrentPackageName: com.nidonocu.vrcunitytoolbar
   listPublishDirectory: Website
   pathToCi: ci
 
