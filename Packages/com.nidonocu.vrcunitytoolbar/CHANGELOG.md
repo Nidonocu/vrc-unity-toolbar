@@ -1,5 +1,8 @@
 # Change Log
 
+### 2.0.1
+* Fixes a bug when compiling projects
+
 ### 2.0.0
 * Added support for switching to the Gesture Manager object in avatar projects
 * Back and Forward selection stacks are now preserved between rebuilds and sessions

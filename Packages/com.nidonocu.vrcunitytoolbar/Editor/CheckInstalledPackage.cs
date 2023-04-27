@@ -1,8 +1,9 @@
-﻿using UnityEditor.PackageManager;
+﻿#if UNITY_EDITOR
+using UnityEditor.PackageManager;
 using UnityEditor.PackageManager.Requests;
 using System.Linq;
 
-#if UNITY_EDITOR
+
 namespace UnityToolbarExtender.Nidonocu
 {
     public static class CheckInstalledPackage
