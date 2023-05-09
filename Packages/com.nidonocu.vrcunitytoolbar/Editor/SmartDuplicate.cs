@@ -4,6 +4,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 #if UNITY_EDITOR
 namespace UnityToolbarExtender.Nidonocu
@@ -35,6 +36,7 @@ namespace UnityToolbarExtender.Nidonocu
                             duplicatedPrefab.transform.SetSiblingIndex(targetSibling.transform.GetSiblingIndex() + 1);
                             //newObject = duplicatedPrefab;
                             Undo.RegisterCreatedObjectUndo(duplicatedPrefab, "Duplicate Prefab");
+                            FixUIDuplication(duplicatedPrefab, gameObject);
                         }
                         else
                         {
@@ -50,6 +52,7 @@ namespace UnityToolbarExtender.Nidonocu
                             duplicateObject.transform.SetSiblingIndex(targetSibling.transform.GetSiblingIndex() + 1);
                             //newObject = duplicateObject;
                             Undo.RegisterCreatedObjectUndo(duplicateObject, "Duplicate Object");
+                            FixUIDuplication(duplicateObject, gameObject);
                         }
                     }
                     else
@@ -70,24 +73,21 @@ namespace UnityToolbarExtender.Nidonocu
                         AssetDatabase.CopyAsset(assetPath, newPath);
                     }
                 }
-                /*if (Selection.objects.Length == 1)
-                {
-                    if (Event.current.shift)
-                    {
-                        // Rename the Original
-                    }
-                    else
-                    {
-                        if (settings.smartDuplicationPromptToRename == SmartDuplicationPromptToRename.OnlyGameObjects ||
-                            settings.smartDuplicationPromptToRename == SmartDuplicationPromptToRename.Everything)
-                        {
-                            Debug.Log("Ping");
-                            Selection.activeObject = newObject;
-                            EditorGUIUtility.PingObject(newObject);
-                            EditorApplication.ExecuteMenuItem("Edit/Rename");
-                        }
-                    }
-                }*/
+            }
+        }
+
+        private static void FixUIDuplication(GameObject newObject, GameObject sourceObject)
+        {
+            var rectNewTransform = newObject.GetComponent<RectTransform>();
+            if (rectNewTransform != null)
+            {
+                var rectSourceTransform = sourceObject.GetComponent<RectTransform>();
+                rectNewTransform.anchoredPosition = rectSourceTransform.anchoredPosition;
+                rectNewTransform.sizeDelta = rectSourceTransform.sizeDelta;
+                rectNewTransform.anchorMax = rectSourceTransform.anchorMax;
+                rectNewTransform.anchorMin = rectSourceTransform.anchorMin;
+                rectNewTransform.offsetMax = rectSourceTransform.offsetMax;
+                rectNewTransform.offsetMin = rectSourceTransform.offsetMin;
             }
         }
 

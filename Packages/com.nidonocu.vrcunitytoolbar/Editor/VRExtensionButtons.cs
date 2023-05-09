@@ -54,10 +54,6 @@ namespace UnityToolbarExtender.Nidonocu
     [InitializeOnLoad]
     public static class VRExtensionButtons
     {
-        static List<Object> BackStack = new List<Object>();
-
-        static List<Object> ForwardStack = new List<Object>();
-
         static Object CurrentSelection = null;
 
         static readonly Texture BackIcon = EditorGUIUtility.IconContent(@"ArrowNavigationLeft").image;
@@ -239,22 +235,14 @@ namespace UnityToolbarExtender.Nidonocu
                     newIDItem.intValue = CurrentSelection.GetInstanceID();
                 }
 
-                //BackStack.Add(CurrentSelection);
-
                 if (backIDArray.arraySize > MaximumStackSize)
                 {
                     backIDArray.DeleteArrayElementAtIndex(0);
                 }
 
-                /*if (BackStack.Count > MaximumStackSize)
-                {
-                    BackStack.RemoveAt(0);
-                }*/
-
                 var forwardIDArray = settingsObject.FindProperty(nameof(VRExtensionButtonsSettings.ForwardIDsStack));
                 forwardIDArray.ClearArray();
 
-                //ForwardStack.Clear();
                 CurrentSelection = Selection.activeObject;
 
                 settingsObject.ApplyModifiedProperties();
@@ -271,9 +259,6 @@ namespace UnityToolbarExtender.Nidonocu
             var iDItem = backIDArray.GetArrayElementAtIndex(index).intValue;
             Selection.activeObject = EditorUtility.InstanceIDToObject(iDItem);
 
-            //Selection.activeObject = BackStack[BackStack.Count - 1];
-            //ForwardStack.Add(CurrentSelection);
-
             var forwardIDArray = settingsObject.FindProperty(nameof(VRExtensionButtonsSettings.ForwardIDsStack));
             forwardIDArray.arraySize++;
             int newIndex = forwardIDArray.arraySize - 1;
@@ -285,7 +270,6 @@ namespace UnityToolbarExtender.Nidonocu
 
             backIDArray.DeleteArrayElementAtIndex(backIDArray.arraySize - 1);
 
-            //BackStack.RemoveAt(BackStack.Count - 1);
             CurrentSelection = Selection.activeObject;
 
             settingsObject.ApplyModifiedProperties();
@@ -300,8 +284,6 @@ namespace UnityToolbarExtender.Nidonocu
             var iDItem = forwardIDArray.GetArrayElementAtIndex(index).intValue;
             Selection.activeObject = EditorUtility.InstanceIDToObject(iDItem);
 
-            //Selection.activeObject = ForwardStack[ForwardStack.Count - 1];
-
             var backIDArray = settingsObject.FindProperty(nameof(VRExtensionButtonsSettings.BackIDsStack));
             backIDArray.arraySize++;
             int newIndex = backIDArray.arraySize - 1;
@@ -311,10 +293,8 @@ namespace UnityToolbarExtender.Nidonocu
                 newIDItem.intValue = CurrentSelection.GetInstanceID();
             }
 
-            //BackStack.Add(CurrentSelection);
             forwardIDArray.DeleteArrayElementAtIndex(forwardIDArray.arraySize - 1);
 
-            //ForwardStack.RemoveAt(ForwardStack.Count - 1);
             CurrentSelection = Selection.activeObject;
 
             settingsObject.ApplyModifiedProperties();
@@ -324,7 +304,7 @@ namespace UnityToolbarExtender.Nidonocu
         static void OnBackGUI()
         {
             var backIDArray = settingsObject.FindProperty(nameof(VRExtensionButtonsSettings.BackIDsStack));
-            EditorGUI.BeginDisabledGroup(backIDArray.arraySize == 0);// BackStack.Count == 0);
+            EditorGUI.BeginDisabledGroup(backIDArray.arraySize == 0);
             if (GUILayout.Button(new GUIContent(null, BackIcon, "Navigate to previous selection"), "Command"))
             {
                 NavigateBack();
@@ -335,7 +315,7 @@ namespace UnityToolbarExtender.Nidonocu
         static void OnForwardGUI()
         {
             var forwardIDArray = settingsObject.FindProperty(nameof(VRExtensionButtonsSettings.ForwardIDsStack));
-            EditorGUI.BeginDisabledGroup(forwardIDArray.arraySize == 0);//ForwardStack.Count == 0);
+            EditorGUI.BeginDisabledGroup(forwardIDArray.arraySize == 0);
             if (GUILayout.Button(new GUIContent(null, ForwardIcon, "Navigate to next selection"), "Command"))
             {
                 NavigateForward();
