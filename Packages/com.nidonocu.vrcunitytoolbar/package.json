@@ -1,12 +1,12 @@
 {
   "name": "com.nidonocu.vrcunitytoolbar",
   "displayName": "VRC Unity Toolbar",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "unity": "2019.4",
   "description": "Adds additional buttons to the Unity Editor's Toolbar that removes the need to perform various frequent actions done when building avatars and worlds in VR Chat.",
   "gitDependencies": {},
   "vpmDependencies": {
-    "com.vrchat.base": "~3.2.0"
+    "com.vrchat.base": "~3.3.0"
   },
   "keywords": [
     "toolbar",

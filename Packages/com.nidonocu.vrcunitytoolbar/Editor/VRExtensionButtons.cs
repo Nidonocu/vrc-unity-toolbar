@@ -124,14 +124,6 @@ namespace UnityToolbarExtender.Nidonocu
 
         static void OnPlayModeChanged(PlayModeStateChange obj)
         {
-            // Check for Build Mode
-            var buildObject = GameObject.Find("VRCSDK");
-            if (buildObject != null && buildObject.GetComponent("RuntimeBlueprintCreation") != null)
-            {
-                Debug.Log("In Build Mode, skipping Toolbar button actions");
-                return;
-            }
-
             if (settingsObject.FindProperty(nameof(VRExtensionButtonsSettings.switchToScene)).boolValue && obj == PlayModeStateChange.EnteredPlayMode)
             {
                 EditorWindow.FocusWindowIfItsOpen<SceneView>();

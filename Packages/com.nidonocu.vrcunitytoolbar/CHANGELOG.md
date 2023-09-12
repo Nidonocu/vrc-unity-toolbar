@@ -1,5 +1,8 @@
 # Change Log
 
+### 2.2.0
+* Removed build check for VRChat SDK 3.3.0
+
 ### 2.1.0
 * Confirmed compatible with VRChat SDK 3.2.0
 * Fixed changing of anchored transform values when smart duplicating Unity UI objects
