@@ -12,7 +12,7 @@ Currently this is the following functions:
 More functions may be added over time.
 
 ## Compatibility
-This package has been tested with `Unity 2019.4.31f` and the latest *VRChat SDK* as of `2023/04/24`.
+This package has been tested with `Unity 2019.4.31f` and the latest *VRChat SDK* as of `2023/09/12`.
 
 It should function in projects both using and not using the *VRChat Creator Companion*.
 
@@ -27,7 +27,7 @@ Updates to this package will be automatically installable via the VCC using this
 The most easy way to install this package's listing to the [VRChat Creator Companion](https://vcc.docs.vrchat.com/) using the Community Repository feature.
 
 ### Automatic Community Repository - (Recommended)
-1. Click the big **Add Package Listing** button below if you're viewing this on the website or navigate to the [Virtual Gryphon Packages](https://nidonocu.github.io/Virtual-Gryphon-Packages/) page.
+1. Click the big **Add Package Listing** button below if you're viewing this on the website or navigate to the [Virtual Gryphon Packages](https://nidonocu.github.io/virtual-gryphon-packages/) page.
 2. Click the **Add to VCC** button at the package listing website.
 3. If prompted by your web-browser, click **Open** on the pop-up confirmation that appears.
 4. In the VRChat Creator Companion, a confirmation dialog will have appeared. Click **I Understand, Add Repository**.
@@ -129,8 +129,6 @@ When activated, this will switch the active window back to the **Scene View** af
 
 This is useful, for example, if needing to test an Avatar and you need access to things such as the move gizmo for shaking the avatar to test its Physbones.
 
-This toggle will be automatically ignored if running a Build.
-
 ### Auto-Select Avatar
 
 When activated, this will switch the currently selected item to the object containing the **Avatar Descriptor** component after hitting the Play button.
@@ -138,8 +136,6 @@ When activated, this will switch the currently selected item to the object conta
 This is useful when using something such as [Lyuma Avatar 3.0 Emulator](https://github.com/lyuma/Av3Emulator) and needing to select the avatar to access the menu testing buttons, other emulator functions or for grabbing the avatar's gizmo to test its physbone movement.
 
 After exiting Play mode, the selection will be *automatically restored* to the *previous item* you had selected when you pressed Play. If you turn off this feature while in Play mode, the current selection will be retained.
-
-This toggle will be automatically ignored if running a Build.
 
 This function will only be available in VRChat Avatar projects.
 
@@ -152,8 +148,6 @@ This is useful when you want to test an avatar using this package's emulation fe
 If you have not yet added a Gesture Manager object to the scene and this feature is enabled, a Gesture Manager object will be added for the duration of the testing mode.
 
 Like with Auto-Select Avatar, after exiting Play mode, the selection will be *automatically restored* to the *previous item* you had selected when you pressed Play. If you turn off this feature while in Play mode, the current selection will be retained.
-
-This toggle will be automatically ignored if running a Build.
 
 This function will only be available in VRChat Avatar projects and obviously, the Gesture Manager package must be installed. This can be done automatically using the **VCC**.
 
