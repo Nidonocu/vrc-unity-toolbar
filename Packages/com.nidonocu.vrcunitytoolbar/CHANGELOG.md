@@ -1,5 +1,8 @@
 # Change Log
 
+### 2.2.1
+* Marked as compatible with VRChat SDK ^3.4.0
+
 ### 2.2.0
 * Removed build check for VRChat SDK 3.3.0
 

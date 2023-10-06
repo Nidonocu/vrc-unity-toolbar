@@ -12,7 +12,7 @@ Currently this is the following functions:
 More functions may be added over time.
 
 ## Compatibility
-This package has been tested with `Unity 2019.4.31f` and the latest *VRChat SDK* as of `2023/09/12`.
+This package has been tested with `Unity 2019.4.31f` and the `VRChat SDK 3.4.0`.
 
 It should function in projects both using and not using the *VRChat Creator Companion*.
 
