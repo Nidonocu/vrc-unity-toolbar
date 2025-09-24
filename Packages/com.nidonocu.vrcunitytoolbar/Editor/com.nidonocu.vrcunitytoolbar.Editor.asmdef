@@ -1,8 +1,11 @@
 {
     "name": "com.nidonocu.vrcunitytoolbar.Editor",
+    "rootNamespace": "",
     "references": [
         "GUID:3456780c4fb2d324ab9c633d6f1b0ddb",
         "GUID:6e9c6119ac4eb334284fb7b4bc6d1f05",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f",
+        "GUID:6546d7765b4165b40850b3667f981c26",
         "com.nidonocu.vrcunitytoolbar"
     ],
     "includePlatforms": [],
