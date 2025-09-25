@@ -64,3 +64,10 @@ Assets/PackageMakerWindowData.asset*
 .vscode
 
 /Assets/Tarfmagougou/*
+/Assets/TextMesh Pro*
+/UserSettings/*
+/Assets/Test Data*
+/Assets/Scenes*
+
+/Assets/Settings/VRCUnityToolbarSettings.asset
+/Assets/Settings/VRCUnityToolbarSettings.asset.meta

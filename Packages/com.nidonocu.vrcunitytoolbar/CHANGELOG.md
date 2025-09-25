@@ -1,5 +1,16 @@
 # Change Log
 
+### 3.0.0
+* Fixed icon setting when rendering toolbar buttons (hopefully)
+* Upgraded project to Unity 2022.3.22f1
+* Marked as compatible with VRChat SDK ^3.8.2 and Package Resolver ^0.1.29
+* Added new menu under Tools > Nidonocu with bulk functions for:
+    * Changing fonts on multiple text and TMP components
+    * Updating a property on all materials that use a given shader
+    * Creating materials from a set of texture files
+    * Creating AnimationClips that are child assets of their Animation Controller
+* Added Quick Installer functions for the HierarchyIcons package and Mochie shaders
+
 ### 2.2.1
 * Marked as compatible with VRChat SDK ^3.4.0
 

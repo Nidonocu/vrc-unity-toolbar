@@ -56,21 +56,23 @@ namespace UnityToolbarExtender.Nidonocu
     {
         static Object CurrentSelection = null;
 
-        static readonly Texture BackIcon = EditorGUIUtility.IconContent(@"ArrowNavigationLeft").image;
+        static Texture BackIcon;
 
-        static readonly Texture ForwardIcon = EditorGUIUtility.IconContent(@"ArrowNavigationRight").image;
+        static Texture ForwardIcon;
 
-        static readonly Texture SmartDuplicateIcon = Resources.Load<Texture>("SmartDuplicate");
+        static Texture SmartDuplicateIcon;
 
-        static readonly Texture SceneIcon = EditorGUIUtility.IconContent(@"UnityEditor.SceneView").image;
+        static Texture SceneIcon;
 
 #if VRC_SDK_VRCSDK2 || VRC_SDK_VRCSDK3 && !UDON
         static Object lastSelectedObjectBeforePlay = null;
 
-        static readonly Texture AvatarIcon = EditorGUIUtility.IconContent(@"d_Avatar Icon").image;
-        static readonly Texture VRCMenuIcon = Resources.Load<Texture>("VRC_Menu_Icon");
+        static Texture AvatarIcon;
+        static Texture VRCMenuIcon;
 
-        static readonly string GestureManagerAssemblyQualifiedTypeName = "BlackStartX.GestureManager.GestureManager, vrchat.blackstartx.gesture-manager, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null";
+        static string GestureManagerAssemblyQualifiedTypeName = "BlackStartX.GestureManager.GestureManager, vrchat.blackstartx.gesture-manager, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null";
+        
+        static bool? packageStatus = null;
 #endif
 
         static bool NavigatingStack = false;
@@ -78,8 +80,6 @@ namespace UnityToolbarExtender.Nidonocu
         public static VRExtensionButtonsSettings settings;
 
         public static SerializedObject settingsObject;
-
-        static bool? packageStatus = null;
 
         static VRExtensionButtons()
         {
@@ -295,6 +295,10 @@ namespace UnityToolbarExtender.Nidonocu
 
         static void OnBackGUI()
         {
+            if (BackIcon == null)
+            {
+                BackIcon = EditorGUIUtility.IconContent(@"ArrowNavigationLeft").image;
+            }
             var backIDArray = settingsObject.FindProperty(nameof(VRExtensionButtonsSettings.BackIDsStack));
             EditorGUI.BeginDisabledGroup(backIDArray.arraySize == 0);
             if (GUILayout.Button(new GUIContent(null, BackIcon, "Navigate to previous selection"), "Command"))
@@ -306,6 +310,10 @@ namespace UnityToolbarExtender.Nidonocu
 
         static void OnForwardGUI()
         {
+            if (ForwardIcon == null)
+            {
+                ForwardIcon = EditorGUIUtility.IconContent(@"ArrowNavigationRight").image;
+            }
             var forwardIDArray = settingsObject.FindProperty(nameof(VRExtensionButtonsSettings.ForwardIDsStack));
             EditorGUI.BeginDisabledGroup(forwardIDArray.arraySize == 0);
             if (GUILayout.Button(new GUIContent(null, ForwardIcon, "Navigate to next selection"), "Command"))
@@ -317,6 +325,10 @@ namespace UnityToolbarExtender.Nidonocu
 
         static void OnDuplicateSelectionGUI()
         {
+            if (SmartDuplicateIcon == null)
+            {
+                SmartDuplicateIcon = Resources.Load<Texture>("SmartDuplicate");
+            }
             GUILayout.Space(10f);
             EditorGUI.BeginDisabledGroup(Selection.activeObject == null);
             if (GUILayout.Button(new GUIContent(null, SmartDuplicateIcon, "Smart Duplicate"), "Command"))
@@ -346,6 +358,11 @@ This dialog won't appear again in this project, sorry for the interruption!", "O
 
         static void OnSceneToolbarGUI()
         {
+            if (SceneIcon == null)
+            {
+                SceneIcon = EditorGUIUtility.IconContent(@"UnityEditor.SceneView").image;
+            }
+
             GUI.changed = false;
 
             GUILayout.Toggle(settingsObject.FindProperty(nameof(VRExtensionButtonsSettings.switchToScene)).boolValue, new GUIContent(null, SceneIcon, "Focus SceneView when entering play mode"), "Command");
@@ -359,6 +376,11 @@ This dialog won't appear again in this project, sorry for the interruption!", "O
 #if VRC_SDK_VRCSDK2 || VRC_SDK_VRCSDK3 && !UDON
         static void OnSelectAvatarToolbarGUI()
         {
+            if (AvatarIcon == null)
+            {
+                AvatarIcon = EditorGUIUtility.IconContent(@"d_Avatar Icon").image;
+            }
+
             GUI.changed = false;
 
             var currentAutoSelectionMode = settingsObject.FindProperty(nameof(VRExtensionButtonsSettings.autoSelectOnPlay)).enumValueIndex;
@@ -381,6 +403,11 @@ This dialog won't appear again in this project, sorry for the interruption!", "O
 
         static void OnSelectGestureManagerToolbarGUI()
         {
+            if (VRCMenuIcon == null)
+            {
+                VRCMenuIcon = Resources.Load<Texture>("VRC_Menu_Icon");
+            }
+
             GUI.changed = false;
 
             var currentAutoSelectionMode = settingsObject.FindProperty(nameof(VRExtensionButtonsSettings.autoSelectOnPlay)).enumValueIndex;
