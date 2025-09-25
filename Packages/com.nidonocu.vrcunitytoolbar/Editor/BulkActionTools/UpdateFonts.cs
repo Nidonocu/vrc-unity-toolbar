@@ -76,18 +76,12 @@ namespace UnityToolbarExtender.Nidonocu.BulkActionTools
             if (FoundComponents.Count > 0)
             {
                 GUILayout.Space(10);
-                showComponentsList = EditorGUILayout.BeginFoldoutHeaderGroup(showComponentsList, "Found Components");
-                if (showComponentsList)
-                {
-                    componentsScrollPositon = EditorGUILayout.BeginScrollView(componentsScrollPositon);
-                    EditorGUI.BeginDisabledGroup(true);
-                    foreach (var component in FoundComponents)
-                    {
-                        EditorGUILayout.ObjectField(component, typeof(Component), false);
-                    }
-                    EditorGUI.EndDisabledGroup();
-                    EditorGUILayout.EndScrollView();
-                }
+                showComponentsList = GUIHelperFunctions.RenderResultsList(
+                    showComponentsList,
+                    "Found Components",
+                    ref componentsScrollPositon,
+                    FoundComponents
+                    );
             }
             else if (rootObject != null)
             {

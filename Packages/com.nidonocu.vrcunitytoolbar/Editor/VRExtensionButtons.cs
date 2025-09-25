@@ -71,6 +71,8 @@ namespace UnityToolbarExtender.Nidonocu
         static Texture VRCMenuIcon;
 
         static string GestureManagerAssemblyQualifiedTypeName = "BlackStartX.GestureManager.GestureManager, vrchat.blackstartx.gesture-manager, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null";
+        
+        static bool? packageStatus = null;
 #endif
 
         static bool NavigatingStack = false;
@@ -78,8 +80,6 @@ namespace UnityToolbarExtender.Nidonocu
         public static VRExtensionButtonsSettings settings;
 
         public static SerializedObject settingsObject;
-
-        static bool? packageStatus = null;
 
         static VRExtensionButtons()
         {

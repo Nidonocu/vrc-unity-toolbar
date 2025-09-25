@@ -88,6 +88,9 @@ If no parent can be found, then the first avatar in the scene will be selected."
             @"The Gesture Manager control object will attempt to be selected when entering play mode. 
 If the Gesture Manager control object can't be found, one will be automatically added to the scene.
 This option of course, requires the Gesture Manager package to be installed!";
+
+        static bool? packageStatus = null;
+
 #else
         private static readonly string notAvatarProject =
             @"This is not an avatar project so this option is not available.";
@@ -144,8 +147,6 @@ Note: Some symbol choices can not be used for Asset duplication and alternatives
         /// URL for developer's profile
         /// </summary>
         const string ProfileURL = "https://nidonocu.github.io/Virtual-Gryphon-Packages/";
-
-        static bool? packageStatus = null;
 
         [SettingsProvider]
         public static SettingsProvider CreateSettingsProvider()

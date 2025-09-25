@@ -1,5 +1,4 @@
 #if UNITY_EDITOR
-using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -116,18 +115,12 @@ namespace UnityToolbarExtender.Nidonocu.BulkActionTools
 
             if (FoundMaterials.Count > 0)
             {
-                showMaterialsList = EditorGUILayout.BeginFoldoutHeaderGroup(showMaterialsList, "Found Materials");
-                if (showMaterialsList)
-                {
-                    materialScrollPositon = EditorGUILayout.BeginScrollView(materialScrollPositon);
-                    EditorGUI.BeginDisabledGroup(true);
-                    foreach (var material in FoundMaterials)
-                    {
-                        EditorGUILayout.ObjectField(material, typeof(Material), false);
-                    }
-                    EditorGUI.EndDisabledGroup();
-                    EditorGUILayout.EndScrollView();
-                }
+                showMaterialsList = GUIHelperFunctions.RenderResultsList(
+                    showMaterialsList,
+                    "Found Materials",
+                    ref materialScrollPositon,
+                    FoundMaterials
+                    );
             }
 
             if (FoundMaterials.Count > 0)
