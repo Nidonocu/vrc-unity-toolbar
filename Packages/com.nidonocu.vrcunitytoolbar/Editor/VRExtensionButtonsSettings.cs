@@ -30,6 +30,12 @@ namespace UnityToolbarExtender.Nidonocu
 
         public SmartDuplicationPromptToRename smartDuplicationPromptToRename = SmartDuplicationPromptToRename.Everything;
 
+        public string LastMochieFeedUpdate = string.Empty;
+
+        public string InstalledMochieVersion = string.Empty;
+
+        public bool NoMochieAutoUpdate = false;
+
         public static string SettingsPath = "Assets/Settings/VRCUnityToolbarSettings.asset";
 
         private static VRExtensionButtonsSettings _settings;

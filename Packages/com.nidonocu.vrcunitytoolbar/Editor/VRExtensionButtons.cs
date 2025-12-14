@@ -83,6 +83,20 @@ namespace UnityToolbarExtender.Nidonocu
 
         static VRExtensionButtons()
         {
+            EditorApplication.update += WaitForEditorReady;
+        }
+
+        private static void WaitForEditorReady()
+        {
+            if (!EditorApplication.isCompiling && !EditorApplication.isUpdating)
+            {
+                EditorApplication.update -= WaitForEditorReady;
+                Initialize();
+            }
+        }
+
+        private static void Initialize()
+        {
             // Remove old editor prefs
             EditorPrefs.DeleteKey("SwitchToScene");
             EditorPrefs.DeleteKey("SelectAvatar");
