@@ -71,3 +71,360 @@ Assets/PackageMakerWindowData.asset*
 
 /Assets/Settings/VRCUnityToolbarSettings.asset
 /Assets/Settings/VRCUnityToolbarSettings.asset.meta
+/Assets/Mochie/*
+/Assets/Mochie/Common/Color.cginc
+/Assets/Mochie/Common/Color.cginc.meta
+/Assets/Mochie/Common/LightVolumes.cginc
+/Assets/Mochie/Common/LightVolumes.cginc.meta
+/Assets/Mochie/Common/Noise.cginc
+/Assets/Mochie/Common/Noise.cginc.meta
+/Assets/Mochie/Common/Sampling.cginc
+/Assets/Mochie/Common/Sampling.cginc.meta
+/Assets/Mochie/Common/Utilities.cginc
+/Assets/Mochie/Common/Utilities.cginc.meta
+/Assets/Mochie/Glass Shader/Glass Two Pass.shader
+/Assets/Mochie/Glass Shader/Glass Two Pass.shader.meta
+/Assets/Mochie/Glass Shader/Glass.shader
+/Assets/Mochie/Glass Shader/Glass.shader.meta
+/Assets/Mochie/Glass Shader/GlassDefines.cginc
+/Assets/Mochie/Glass Shader/GlassDefines.cginc.meta
+/Assets/Mochie/Glass Shader/GlassFunctions.cginc
+/Assets/Mochie/Glass Shader/GlassFunctions.cginc.meta
+/Assets/Mochie/Glass Shader/GlassKernels.cginc
+/Assets/Mochie/Glass Shader/GlassKernels.cginc.meta
+/Assets/Mochie/Glass Shader/GlassPass.cginc
+/Assets/Mochie/Glass Shader/GlassPass.cginc.meta
+/Assets/Mochie/LED Shader/LED Screen (Transparent).shader
+/Assets/Mochie/LED Shader/LED Screen (Transparent).shader.meta
+/Assets/Mochie/LED Shader/LED Screen.shader
+/Assets/Mochie/LED Shader/LED Screen.shader.meta
+/Assets/Mochie/LED Shader/RGBSubPixel.cginc
+/Assets/Mochie/LED Shader/RGBSubPixel.cginc.meta
+/Assets/Mochie/Particle Shader/Particles.shader
+/Assets/Mochie/Particle Shader/Particles.shader.meta
+/Assets/Mochie/Particle Shader/PSDefines.cginc
+/Assets/Mochie/Particle Shader/PSDefines.cginc.meta
+/Assets/Mochie/Particle Shader/PSFunctions.cginc
+/Assets/Mochie/Particle Shader/PSFunctions.cginc.meta
+/Assets/Mochie/Particle Shader/PSKeyDefines.cginc
+/Assets/Mochie/Particle Shader/PSKeyDefines.cginc.meta
+/Assets/Mochie/ScreenFX Shader/SFX.shader
+/Assets/Mochie/ScreenFX Shader/SFX.shader.meta
+/Assets/Mochie/ScreenFX Shader/SFXBlur.cginc
+/Assets/Mochie/ScreenFX Shader/SFXBlur.cginc.meta
+/Assets/Mochie/ScreenFX Shader/SFXDefines.cginc
+/Assets/Mochie/ScreenFX Shader/SFXDefines.cginc.meta
+/Assets/Mochie/ScreenFX Shader/SFXFunctions.cginc
+/Assets/Mochie/ScreenFX Shader/SFXFunctions.cginc.meta
+/Assets/Mochie/ScreenFX Shader/SFXKernel.cginc
+/Assets/Mochie/ScreenFX Shader/SFXKernel.cginc.meta
+/Assets/Mochie/ScreenFX Shader/SFXKeyDefines.cginc
+/Assets/Mochie/ScreenFX Shader/SFXKeyDefines.cginc.meta
+/Assets/Mochie/ScreenFX Shader/SFXPass.cginc
+/Assets/Mochie/ScreenFX Shader/SFXPass.cginc.meta
+/Assets/Mochie/ScreenFX Shader/SFXXFeatures.cginc
+/Assets/Mochie/ScreenFX Shader/SFXXFeatures.cginc.meta
+/Assets/Mochie/ScreenFX Shader/SFXXPasses.cginc
+/Assets/Mochie/ScreenFX Shader/SFXXPasses.cginc.meta
+/Assets/Mochie/Standard Shader/Standard Lite.shader
+/Assets/Mochie/Standard Shader/Standard Lite.shader.meta
+/Assets/Mochie/Standard Shader/Standard Mobile.shader
+/Assets/Mochie/Standard Shader/Standard Mobile.shader.meta
+/Assets/Mochie/Standard Shader/Standard.shader
+/Assets/Mochie/Standard Shader/Standard.shader.meta
+/Assets/Mochie/Standard Shader/StandardBakery.cginc
+/Assets/Mochie/Standard Shader/StandardBakery.cginc.meta
+/Assets/Mochie/Standard Shader/StandardBRDF.cginc
+/Assets/Mochie/Standard Shader/StandardBRDF.cginc.meta
+/Assets/Mochie/Standard Shader/StandardDefines.cginc
+/Assets/Mochie/Standard Shader/StandardDefines.cginc.meta
+/Assets/Mochie/Standard Shader/StandardFrag.cginc
+/Assets/Mochie/Standard Shader/StandardFrag.cginc.meta
+/Assets/Mochie/Standard Shader/StandardInput.cginc
+/Assets/Mochie/Standard Shader/StandardInput.cginc.meta
+/Assets/Mochie/Standard Shader/StandardLighting.cginc
+/Assets/Mochie/Standard Shader/StandardLighting.cginc.meta
+/Assets/Mochie/Standard Shader/StandardMeta.cginc
+/Assets/Mochie/Standard Shader/StandardMeta.cginc.meta
+/Assets/Mochie/Standard Shader/StandardParallax.cginc
+/Assets/Mochie/Standard Shader/StandardParallax.cginc.meta
+/Assets/Mochie/Standard Shader/StandardRain.cginc
+/Assets/Mochie/Standard Shader/StandardRain.cginc.meta
+/Assets/Mochie/Standard Shader/StandardShadow.cginc
+/Assets/Mochie/Standard Shader/StandardShadow.cginc.meta
+/Assets/Mochie/Standard Shader/StandardSSR.cginc
+/Assets/Mochie/Standard Shader/StandardSSR.cginc.meta
+/Assets/Mochie/Standard Shader/StandardThirdParty.cginc
+/Assets/Mochie/Standard Shader/StandardThirdParty.cginc.meta
+/Assets/Mochie/Standard Shader/StandardVert.cginc
+/Assets/Mochie/Standard Shader/StandardVert.cginc.meta
+/Assets/Mochie/Standard Shader/StandardVertManip.cginc
+/Assets/Mochie/Standard Shader/StandardVertManip.cginc.meta
+/Assets/Mochie/Uber Shader/Uber (Outline).shader
+/Assets/Mochie/Uber Shader/Uber (Outline).shader.meta
+/Assets/Mochie/Uber Shader/Uber.shader
+/Assets/Mochie/Uber Shader/Uber.shader.meta
+/Assets/Mochie/Uber Shader/USAudioLink.cginc
+/Assets/Mochie/Uber Shader/USAudioLink.cginc.meta
+/Assets/Mochie/Uber Shader/USBRDF.cginc
+/Assets/Mochie/Uber Shader/USBRDF.cginc.meta
+/Assets/Mochie/Uber Shader/USDefines.cginc
+/Assets/Mochie/Uber Shader/USDefines.cginc.meta
+/Assets/Mochie/Uber Shader/USFunctions.cginc
+/Assets/Mochie/Uber Shader/USFunctions.cginc.meta
+/Assets/Mochie/Uber Shader/USKeyDefines.cginc
+/Assets/Mochie/Uber Shader/USKeyDefines.cginc.meta
+/Assets/Mochie/Uber Shader/USLighting.cginc
+/Assets/Mochie/Uber Shader/USLighting.cginc.meta
+/Assets/Mochie/Uber Shader/USPass.cginc
+/Assets/Mochie/Uber Shader/USPass.cginc.meta
+/Assets/Mochie/Uber Shader/USSSR.cginc
+/Assets/Mochie/Uber Shader/USSSR.cginc.meta
+/Assets/Mochie/Uber Shader/USXFeatures.cginc
+/Assets/Mochie/Uber Shader/USXFeatures.cginc.meta
+/Assets/Mochie/Uber Shader/USXGeom.cginc
+/Assets/Mochie/Uber Shader/USXGeom.cginc.meta
+/Assets/Mochie/Unity/Editor/Common/DebugFlags.cs
+/Assets/Mochie/Unity/Editor/Common/DebugFlags.cs.meta
+/Assets/Mochie/Unity/Editor/Common/Foldouts.cs
+/Assets/Mochie/Unity/Editor/Common/Foldouts.cs.meta
+/Assets/Mochie/Unity/Editor/Common/MGUI.cs
+/Assets/Mochie/Unity/Editor/Common/MGUI.cs.meta
+/Assets/Mochie/Unity/Editor/Common/Tips.cs
+/Assets/Mochie/Unity/Editor/Common/Tips.cs.meta
+/Assets/Mochie/Unity/Editor/Common/Toggles.cs
+/Assets/Mochie/Unity/Editor/Common/Toggles.cs.meta
+/Assets/Mochie/Unity/Editor/Tools/MochieShaderUpgrader/Moving Parts/Data/ChangeShaderUpgradeInfo.cs
+/Assets/Mochie/Unity/Editor/Tools/MochieShaderUpgrader/Moving Parts/Data/ChangeShaderUpgradeInfo.cs.meta
+/Assets/Mochie/Unity/Editor/Tools/MochieShaderUpgrader/Moving Parts/Data/MaterialContext.cs
+/Assets/Mochie/Unity/Editor/Tools/MochieShaderUpgrader/Moving Parts/Data/MaterialContext.cs.meta
+/Assets/Mochie/Unity/Editor/Tools/MochieShaderUpgrader/Moving Parts/Data/SerializedMaterialPropertyType.cs
+/Assets/Mochie/Unity/Editor/Tools/MochieShaderUpgrader/Moving Parts/Data/SerializedMaterialPropertyType.cs.meta
+/Assets/Mochie/Unity/Editor/Tools/MochieShaderUpgrader/Moving Parts/Data/ShaderUpgradeInfo.cs
+/Assets/Mochie/Unity/Editor/Tools/MochieShaderUpgrader/Moving Parts/Data/ShaderUpgradeInfo.cs.meta
+/Assets/Mochie/Unity/Editor/Tools/MochieShaderUpgrader/Moving Parts/Data/TextureContainer.cs
+/Assets/Mochie/Unity/Editor/Tools/MochieShaderUpgrader/Moving Parts/Data/TextureContainer.cs.meta
+/Assets/Mochie/Unity/Editor/Tools/MochieShaderUpgrader/Moving Parts/Property Actions/Base/CopyPropertyValueActionBase.cs
+/Assets/Mochie/Unity/Editor/Tools/MochieShaderUpgrader/Moving Parts/Property Actions/Base/CopyPropertyValueActionBase.cs.meta
+/Assets/Mochie/Unity/Editor/Tools/MochieShaderUpgrader/Moving Parts/Property Actions/Base/IPropertyAction.cs
+/Assets/Mochie/Unity/Editor/Tools/MochieShaderUpgrader/Moving Parts/Property Actions/Base/IPropertyAction.cs.meta
+/Assets/Mochie/Unity/Editor/Tools/MochieShaderUpgrader/Moving Parts/Property Actions/Base/PropertyActionBase.cs
+/Assets/Mochie/Unity/Editor/Tools/MochieShaderUpgrader/Moving Parts/Property Actions/Base/PropertyActionBase.cs.meta
+/Assets/Mochie/Unity/Editor/Tools/MochieShaderUpgrader/Moving Parts/Property Actions/Base/UpgradeActionBase.cs
+/Assets/Mochie/Unity/Editor/Tools/MochieShaderUpgrader/Moving Parts/Property Actions/Base/UpgradeActionBase.cs.meta
+/Assets/Mochie/Unity/Editor/Tools/MochieShaderUpgrader/Moving Parts/Property Actions/Base.meta
+/Assets/Mochie/Unity/Editor/Tools/MochieShaderUpgrader/Moving Parts/Property Actions/CopyFloatPropertyValueAction.cs
+/Assets/Mochie/Unity/Editor/Tools/MochieShaderUpgrader/Moving Parts/Property Actions/CopyFloatPropertyValueAction.cs.meta
+/Assets/Mochie/Unity/Editor/Tools/MochieShaderUpgrader/Moving Parts/Property Actions/CopyIntPropertyValueAction.cs
+/Assets/Mochie/Unity/Editor/Tools/MochieShaderUpgrader/Moving Parts/Property Actions/CopyIntPropertyValueAction.cs.meta
+/Assets/Mochie/Unity/Editor/Tools/MochieShaderUpgrader/Moving Parts/Property Actions/CopyTexturePropertyValueAction.cs
+/Assets/Mochie/Unity/Editor/Tools/MochieShaderUpgrader/Moving Parts/Property Actions/CopyTexturePropertyValueAction.cs.meta
+/Assets/Mochie/Unity/Editor/Tools/MochieShaderUpgrader/Moving Parts/Property Actions/CopyVectorPropertyValueAction.cs
+/Assets/Mochie/Unity/Editor/Tools/MochieShaderUpgrader/Moving Parts/Property Actions/CopyVectorPropertyValueAction.cs.meta
+/Assets/Mochie/Unity/Editor/Tools/MochieShaderUpgrader/Moving Parts/Property Actions/SetPropertyValueAction.cs
+/Assets/Mochie/Unity/Editor/Tools/MochieShaderUpgrader/Moving Parts/Property Actions/SetPropertyValueAction.cs.meta
+/Assets/Mochie/Unity/Editor/Tools/MochieShaderUpgrader/Moving Parts/Data.meta
+/Assets/Mochie/Unity/Editor/Tools/MochieShaderUpgrader/Moving Parts/MochieMaterialImporter.cs
+/Assets/Mochie/Unity/Editor/Tools/MochieShaderUpgrader/Moving Parts/MochieMaterialImporter.cs.meta
+/Assets/Mochie/Unity/Editor/Tools/MochieShaderUpgrader/Moving Parts/MochieMaterialUpgradeBase.cs
+/Assets/Mochie/Unity/Editor/Tools/MochieShaderUpgrader/Moving Parts/MochieMaterialUpgradeBase.cs.meta
+/Assets/Mochie/Unity/Editor/Tools/MochieShaderUpgrader/Moving Parts/Property Actions.meta
+/Assets/Mochie/Unity/Editor/Tools/MochieShaderUpgrader/Upgrades/MochieMaterialUpgrade_V0_To_V1.cs
+/Assets/Mochie/Unity/Editor/Tools/MochieShaderUpgrader/Upgrades/MochieMaterialUpgrade_V0_To_V1.cs.meta
+/Assets/Mochie/Unity/Editor/Tools/MochieShaderUpgrader/IPostMaterialUpgradeCallback.cs
+/Assets/Mochie/Unity/Editor/Tools/MochieShaderUpgrader/IPostMaterialUpgradeCallback.cs.meta
+/Assets/Mochie/Unity/Editor/Tools/MochieShaderUpgrader/MochieShaderMaterialAutoUpgrade.cs
+/Assets/Mochie/Unity/Editor/Tools/MochieShaderUpgrader/MochieShaderMaterialAutoUpgrade.cs.meta
+/Assets/Mochie/Unity/Editor/Tools/MochieShaderUpgrader/Moving Parts.meta
+/Assets/Mochie/Unity/Editor/Tools/MochieShaderUpgrader/Upgrades.meta
+/Assets/Mochie/Unity/Editor/Tools/GifConverter.cs
+/Assets/Mochie/Unity/Editor/Tools/GifConverter.cs.meta
+/Assets/Mochie/Unity/Editor/Tools/GlobalStandardSettings.cs
+/Assets/Mochie/Unity/Editor/Tools/GlobalStandardSettings.cs.meta
+/Assets/Mochie/Unity/Editor/Tools/MaterialCreator.cs
+/Assets/Mochie/Unity/Editor/Tools/MaterialCreator.cs.meta
+/Assets/Mochie/Unity/Editor/Tools/MochieShaderUpgrader.meta
+/Assets/Mochie/Unity/Editor/Tools/PoiData.cs
+/Assets/Mochie/Unity/Editor/Tools/PoiData.cs.meta
+/Assets/Mochie/Unity/Editor/Tools/PoiHelpers.cs
+/Assets/Mochie/Unity/Editor/Tools/PoiHelpers.cs.meta
+/Assets/Mochie/Unity/Editor/Tools/TextureChannelPackerEditor.cs
+/Assets/Mochie/Unity/Editor/Tools/TextureChannelPackerEditor.cs.meta
+/Assets/Mochie/Unity/Editor/Common.meta
+/Assets/Mochie/Unity/Editor/GlassEditor.cs
+/Assets/Mochie/Unity/Editor/GlassEditor.cs.meta
+/Assets/Mochie/Unity/Editor/LEDEditor.cs
+/Assets/Mochie/Unity/Editor/LEDEditor.cs.meta
+/Assets/Mochie/Unity/Editor/ParticleEditor.cs
+/Assets/Mochie/Unity/Editor/ParticleEditor.cs.meta
+/Assets/Mochie/Unity/Editor/ScreenFXEditor.cs
+/Assets/Mochie/Unity/Editor/ScreenFXEditor.cs.meta
+/Assets/Mochie/Unity/Editor/StandardEditor.cs
+/Assets/Mochie/Unity/Editor/StandardEditor.cs.meta
+/Assets/Mochie/Unity/Editor/Tools.meta
+/Assets/Mochie/Unity/Editor/UberEditor.cs
+/Assets/Mochie/Unity/Editor/UberEditor.cs.meta
+/Assets/Mochie/Unity/Editor/UnderwaterEditor.cs
+/Assets/Mochie/Unity/Editor/UnderwaterEditor.cs.meta
+/Assets/Mochie/Unity/Editor/WaterEditor.cs
+/Assets/Mochie/Unity/Editor/WaterEditor.cs.meta
+/Assets/Mochie/Unity/Prefabs/Materials/Screen FX Mat.mat
+/Assets/Mochie/Unity/Prefabs/Materials/Screen FX Mat.mat.meta
+/Assets/Mochie/Unity/Prefabs/Materials/Underwater Mat.mat
+/Assets/Mochie/Unity/Prefabs/Materials/Underwater Mat.mat.meta
+/Assets/Mochie/Unity/Prefabs/Materials/Water Clean Mat.mat
+/Assets/Mochie/Unity/Prefabs/Materials/Water Clean Mat.mat.meta
+/Assets/Mochie/Unity/Prefabs/Materials/Water Lava Mat.mat
+/Assets/Mochie/Unity/Prefabs/Materials/Water Lava Mat.mat.meta
+/Assets/Mochie/Unity/Prefabs/Materials/Water Mat.mat
+/Assets/Mochie/Unity/Prefabs/Materials/Water Mat.mat.meta
+/Assets/Mochie/Unity/Prefabs/Depth Light.prefab
+/Assets/Mochie/Unity/Prefabs/Depth Light.prefab.meta
+/Assets/Mochie/Unity/Prefabs/Materials.meta
+/Assets/Mochie/Unity/Prefabs/Screen FX.prefab
+/Assets/Mochie/Unity/Prefabs/Screen FX.prefab.meta
+/Assets/Mochie/Unity/Prefabs/Underwater.prefab
+/Assets/Mochie/Unity/Prefabs/Underwater.prefab.meta
+/Assets/Mochie/Unity/Prefabs/Water (Clean).prefab
+/Assets/Mochie/Unity/Prefabs/Water (Clean).prefab.meta
+/Assets/Mochie/Unity/Prefabs/Water (Lava).prefab
+/Assets/Mochie/Unity/Prefabs/Water (Lava).prefab.meta
+/Assets/Mochie/Unity/Prefabs/Water.prefab
+/Assets/Mochie/Unity/Prefabs/Water.prefab.meta
+/Assets/Mochie/Unity/Resources/CollapseIcon.png
+/Assets/Mochie/Unity/Resources/CollapseIcon.png.meta
+/Assets/Mochie/Unity/Resources/Header_Font.ttf
+/Assets/Mochie/Unity/Resources/Header_Font.ttf.meta
+/Assets/Mochie/Unity/Resources/MochieLogo.png
+/Assets/Mochie/Unity/Resources/MochieLogo.png.meta
+/Assets/Mochie/Unity/Resources/Patreon_Icon.png
+/Assets/Mochie/Unity/Resources/Patreon_Icon.png.meta
+/Assets/Mochie/Unity/Resources/PoiTexturePacker.shader
+/Assets/Mochie/Unity/Resources/PoiTexturePacker.shader.meta
+/Assets/Mochie/Unity/Resources/PoiTexturePackerNoAlpha.shader
+/Assets/Mochie/Unity/Resources/PoiTexturePackerNoAlpha.shader.meta
+/Assets/Mochie/Unity/Resources/PoiTextureUnpacker.shader
+/Assets/Mochie/Unity/Resources/PoiTextureUnpacker.shader.meta
+/Assets/Mochie/Unity/Resources/ResetIcon.png
+/Assets/Mochie/Unity/Resources/ResetIcon.png.meta
+/Assets/Mochie/Unity/Resources/StandardIcon.png
+/Assets/Mochie/Unity/Resources/StandardIcon.png.meta
+/Assets/Mochie/Unity/Textures/Ramps/DefaultRamp.png
+/Assets/Mochie/Unity/Textures/Ramps/DefaultRamp.png.meta
+/Assets/Mochie/Unity/Textures/Subpixel Patterns/LG OLED.tga
+/Assets/Mochie/Unity/Textures/Subpixel Patterns/LG OLED.tga.meta
+/Assets/Mochie/Unity/Textures/Subpixel Patterns/Modern LED.tga
+/Assets/Mochie/Unity/Textures/Subpixel Patterns/Modern LED.tga.meta
+/Assets/Mochie/Unity/Textures/Subpixel Patterns/Old CRT.tga
+/Assets/Mochie/Unity/Textures/Subpixel Patterns/Old CRT.tga.meta
+/Assets/Mochie/Unity/Textures/Subpixel Patterns/Pentile.tga
+/Assets/Mochie/Unity/Textures/Subpixel Patterns/Pentile.tga.meta
+/Assets/Mochie/Unity/Textures/Blend Noise.png
+/Assets/Mochie/Unity/Textures/Blend Noise.png.meta
+/Assets/Mochie/Unity/Textures/Blend.png
+/Assets/Mochie/Unity/Textures/Blend.png.meta
+/Assets/Mochie/Unity/Textures/Caustics Array.asset
+/Assets/Mochie/Unity/Textures/Caustics Array.asset.meta
+/Assets/Mochie/Unity/Textures/CausticsTex.png
+/Assets/Mochie/Unity/Textures/CausticsTex.png.meta
+/Assets/Mochie/Unity/Textures/CausticsTexMult.png
+/Assets/Mochie/Unity/Textures/CausticsTexMult.png.meta
+/Assets/Mochie/Unity/Textures/Default White Swatch (Alpha).png
+/Assets/Mochie/Unity/Textures/Default White Swatch (Alpha).png.meta
+/Assets/Mochie/Unity/Textures/dfg-c.exr
+/Assets/Mochie/Unity/Textures/dfg-c.exr.meta
+/Assets/Mochie/Unity/Textures/dfg-multiscatter.exr
+/Assets/Mochie/Unity/Textures/dfg-multiscatter.exr.meta
+/Assets/Mochie/Unity/Textures/dfg-s.exr
+/Assets/Mochie/Unity/Textures/dfg-s.exr.meta
+/Assets/Mochie/Unity/Textures/Distortion.tif
+/Assets/Mochie/Unity/Textures/Distortion.tif.meta
+/Assets/Mochie/Unity/Textures/Droplet Mask.tif
+/Assets/Mochie/Unity/Textures/Droplet Mask.tif.meta
+/Assets/Mochie/Unity/Textures/Flow.png
+/Assets/Mochie/Unity/Textures/Flow.png.meta
+/Assets/Mochie/Unity/Textures/Foam 1.jpg
+/Assets/Mochie/Unity/Textures/Foam 1.jpg.meta
+/Assets/Mochie/Unity/Textures/Foam 2.jpg
+/Assets/Mochie/Unity/Textures/Foam 2.jpg.meta
+/Assets/Mochie/Unity/Textures/Foam 3.jpg
+/Assets/Mochie/Unity/Textures/Foam 3.jpg.meta
+/Assets/Mochie/Unity/Textures/Glass_Rain_Texturesheet.png
+/Assets/Mochie/Unity/Textures/Glass_Rain_Texturesheet.png.meta
+/Assets/Mochie/Unity/Textures/Hair Normal.png
+/Assets/Mochie/Unity/Textures/Hair Normal.png.meta
+/Assets/Mochie/Unity/Textures/Molten Lava.png
+/Assets/Mochie/Unity/Textures/Molten Lava.png.meta
+/Assets/Mochie/Unity/Textures/NoiseTex.png
+/Assets/Mochie/Unity/Textures/NoiseTex.png.meta
+/Assets/Mochie/Unity/Textures/Normal 1.png
+/Assets/Mochie/Unity/Textures/Normal 1.png.meta
+/Assets/Mochie/Unity/Textures/Normal 2.png
+/Assets/Mochie/Unity/Textures/Normal 2.png.meta
+/Assets/Mochie/Unity/Textures/Normal 3.png
+/Assets/Mochie/Unity/Textures/Normal 3.png.meta
+/Assets/Mochie/Unity/Textures/Normal Array.asset
+/Assets/Mochie/Unity/Textures/Normal Array.asset.meta
+/Assets/Mochie/Unity/Textures/Perlin (Alpha).jpg
+/Assets/Mochie/Unity/Textures/Perlin (Alpha).jpg.meta
+/Assets/Mochie/Unity/Textures/Perlin (Threshold).png
+/Assets/Mochie/Unity/Textures/Perlin (Threshold).png.meta
+/Assets/Mochie/Unity/Textures/Perlin.jpg
+/Assets/Mochie/Unity/Textures/Perlin.jpg.meta
+/Assets/Mochie/Unity/Textures/Ramps.meta
+/Assets/Mochie/Unity/Textures/Shake Noise.png
+/Assets/Mochie/Unity/Textures/Shake Noise.png.meta
+/Assets/Mochie/Unity/Textures/SSR Noise.png
+/Assets/Mochie/Unity/Textures/SSR Noise.png.meta
+/Assets/Mochie/Unity/Textures/Subpixel Patterns.meta
+/Assets/Mochie/Unity/Textures/tanoise_nearest.png
+/Assets/Mochie/Unity/Textures/tanoise_nearest.png.meta
+/Assets/Mochie/Unity/Textures/tanoise.png
+/Assets/Mochie/Unity/Textures/tanoise.png.meta
+/Assets/Mochie/Unity/Textures/Toon Water.png
+/Assets/Mochie/Unity/Textures/Toon Water.png.meta
+/Assets/Mochie/Unity/Textures/Transparent 4x4.png
+/Assets/Mochie/Unity/Textures/Transparent 4x4.png.meta
+/Assets/Mochie/Unity/Textures/Vertex Offset Array.asset
+/Assets/Mochie/Unity/Textures/Vertex Offset Array.asset.meta
+/Assets/Mochie/Unity/Textures/White Swatch (Detail).png
+/Assets/Mochie/Unity/Textures/White Swatch (Detail).png.meta
+/Assets/Mochie/Unity/Textures/White Swatch (Primary).png
+/Assets/Mochie/Unity/Textures/White Swatch (Primary).png.meta
+/Assets/Mochie/Unity/Editor.meta
+/Assets/Mochie/Unity/Prefabs.meta
+/Assets/Mochie/Unity/Resources.meta
+/Assets/Mochie/Unity/Textures.meta
+/Assets/Mochie/Water Shader/Underwater Visuals.shader
+/Assets/Mochie/Water Shader/Underwater Visuals.shader.meta
+/Assets/Mochie/Water Shader/Water.shader
+/Assets/Mochie/Water Shader/Water.shader.meta
+/Assets/Mochie/Water Shader/WaterBlurKernels.cginc
+/Assets/Mochie/Water Shader/WaterBlurKernels.cginc.meta
+/Assets/Mochie/Water Shader/WaterDefines.cginc
+/Assets/Mochie/Water Shader/WaterDefines.cginc.meta
+/Assets/Mochie/Water Shader/WaterFrag.cginc
+/Assets/Mochie/Water Shader/WaterFrag.cginc.meta
+/Assets/Mochie/Water Shader/WaterFunctions.cginc
+/Assets/Mochie/Water Shader/WaterFunctions.cginc.meta
+/Assets/Mochie/Water Shader/WaterIndirect.cginc
+/Assets/Mochie/Water Shader/WaterIndirect.cginc.meta
+/Assets/Mochie/Water Shader/WaterMeta.cginc
+/Assets/Mochie/Water Shader/WaterMeta.cginc.meta
+/Assets/Mochie/Water Shader/WaterSSR.cginc
+/Assets/Mochie/Water Shader/WaterSSR.cginc.meta
+/Assets/Mochie/Water Shader/WaterTess.cginc
+/Assets/Mochie/Water Shader/WaterTess.cginc.meta
+/Assets/Mochie/Water Shader/WaterThirdParty.cginc
+/Assets/Mochie/Water Shader/WaterThirdParty.cginc.meta
+/Assets/Mochie/Water Shader/WaterVert.cginc
+/Assets/Mochie/Water Shader/WaterVert.cginc.meta
+/Assets/Mochie/Common.meta
+/Assets/Mochie/Glass Shader.meta
+/Assets/Mochie/LED Shader.meta
+/Assets/Mochie/Particle Shader.meta
+/Assets/Mochie/ScreenFX Shader.meta
+/Assets/Mochie/Standard Shader.meta
+/Assets/Mochie/Uber Shader.meta
+/Assets/Mochie/Unity.meta
+/Assets/Mochie/Water Shader.meta

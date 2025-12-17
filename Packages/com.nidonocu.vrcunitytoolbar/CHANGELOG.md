@@ -1,5 +1,10 @@
 # Change Log
 
+### 3.1.0
+* Added a new feature to help quick install automatically the Mochie Shader pack as that package
+  does not use the VCC or a manifest file. Tool can now alert of package updates and fetch the
+  new version automatically when needed. Auto-updates can be disabled in the project options.
+
 ### 3.0.0
 * Fixed icon setting when rendering toolbar buttons (hopefully)
 * Upgraded project to Unity 2022.3.22f1
