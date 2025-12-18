@@ -2,6 +2,7 @@
 using System.IO;
 using UnityEditor;
 using UnityEngine;
+using UnityToolbarExtender.Nidonocu.QuickInstallers;
 
 #if UNITY_EDITOR
 namespace UnityToolbarExtender.Nidonocu
@@ -29,6 +30,14 @@ namespace UnityToolbarExtender.Nidonocu
         public SmartDuplicationSeparator smartDuplicationSeparator = SmartDuplicationSeparator.Space;
 
         public SmartDuplicationPromptToRename smartDuplicationPromptToRename = SmartDuplicationPromptToRename.Everything;
+
+        public string LastMochieFeedUpdate = string.Empty;
+
+        public string InstalledMochieVersion = string.Empty;
+
+        public string LastMochieUpdateCheckTime = string.Empty;
+
+        public bool NoMochieAutoUpdate = false;
 
         public static string SettingsPath = "Assets/Settings/VRCUnityToolbarSettings.asset";
 
@@ -131,6 +140,18 @@ Use the shortcut key, menu option or toolbar button to perform smart duplication
 * {4}, in the Asset Database, will be duplicated to {5}
 Note: Some symbol choices can not be used for Asset duplication and alternatives will be used.";
 
+        private static readonly string MochieUpdateExplain = "The VRC Unity Toolbar can help monitor for updates to the Mochie shader if you use it.\n" +
+            "This shader package does not currently use the VCC or other easy way of knowing if an update has been published so this will let you know" +
+            " when an update has been released on the package's Github repository.\n\n" +
+            "Updates will only be checked for if the shader is installed.";
+
+        private static readonly GUIContent NoMochieAutoUpdateLabel = new GUIContent(
+            "Don't check for Mochie Shader updates",
+            "Don't perform automatic checks for updates to the Mochie shader, even if it is installed in the project."
+            );
+
+        private static readonly string MochieStatus = "Current Mochie Shader Version: {0} - Last Update on Repository: {1}";
+
         private static readonly string tooltipHelp =
             @"Hover over any option's label for more information!";
         /// <summary>
@@ -154,11 +175,12 @@ Note: Some symbol choices can not be used for Asset duplication and alternatives
             var provider = new SettingsProvider("Project/VRC Unity Toolbar", SettingsScope.Project)
             {
                 label = "VRC Unity Toolbar",
-                keywords = new HashSet<string>(new string[] { "vrc", "unity", "toolbar", "avatar", "scene", "play", "gesture", "manager", "duplicate", "copy", "numbering" }),
+                keywords = new HashSet<string>(new string[] { "vrc", "unity", "toolbar", "avatar", "scene", "play", "gesture", "manager", "duplicate", "copy", "numbering", "mochie", "update" }),
                 guiHandler = (searchContext) =>
                 {
                     var settings = VRExtensionButtons.settings;
                     var settingsObject = VRExtensionButtons.settingsObject;
+                    settingsObject.Update();
 
                     EditorGUILayout.HelpBox(tooltipHelp, MessageType.Info);
                     EditorGUILayout.Space();
@@ -231,6 +253,26 @@ Note: Some symbol choices can not be used for Asset duplication and alternatives
 
                     DrawUILine(Color.gray);
 
+                    EditorGUILayout.LabelField("Mochie Shader Automatic Updates", EditorStyles.boldLabel);
+                    EditorGUILayout.LabelField(MochieUpdateExplain, EditorStyles.wordWrappedLabel);
+                    EditorGUI.indentLevel++;
+                    EditorGUILayout.PropertyField(settingsObject.FindProperty(nameof(VRExtensionButtonsSettings.NoMochieAutoUpdate)), NoMochieAutoUpdateLabel);
+                    if (CheckInstalledPackage.IsShaderPresent(MochieDownload.ShaderName))
+                    {
+                        EditorGUILayout.HelpBox(string.Format(
+                            MochieStatus, 
+                            settings.InstalledMochieVersion != string.Empty ? settings.InstalledMochieVersion : "Unknown", 
+                            settings.LastMochieFeedUpdate != string.Empty ? settings.LastMochieFeedUpdate : "Unknown"
+                            ), MessageType.Info);
+                    } 
+                    else
+                    {
+                        EditorGUILayout.HelpBox("The Mochie shader is not currently installed.", MessageType.Info);
+                    }
+                        EditorGUI.indentLevel--;
+
+                    DrawUILine(Color.gray);
+
                     EditorGUILayout.BeginHorizontal();
 
                     if (GUILayout.Button(new GUIContent("Package Homepage", null, PackageURL), GUILayout.Height(48)))
@@ -247,7 +289,7 @@ Note: Some symbol choices can not be used for Asset duplication and alternatives
 
                     EditorGUILayout.Space(20f);
 
-                    EditorGUILayout.LabelField("VRC Unity Toolbar - Version 2.0.0 - Created by Nidonocu © 2023", EditorStyles.boldLabel);
+                    EditorGUILayout.LabelField("VRC Unity Toolbar - Version 3.1.0 - Created by Nidonocu © 2025", EditorStyles.boldLabel);
 
                     EditorGUIUtility.labelWidth = 0f;
 
