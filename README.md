@@ -1,6 +1,8 @@
 # 🧰 VRC Unity Toolbar
 
-This package adds additional buttons to the Unity Editor's Toolbar and Menu bar that removes the need to perform various frequent actions done when building avatars and worlds in [VR Chat](https://vrchat.com/).
+This package adds additional buttons to the Unity Editor's Toolbar and Menu bar that removes the need to perform various frequent actions done when building avatars and worlds in [VR Chat](https://vrchat.com/). 
+
+It also provides various automatic bulk functions via the Tools menu and quick installers and update management for some non-VCC packages, such as the Mochie Shader.
 
 Features:
 * **[Selection Navigation](#selection-navigation)**
@@ -8,11 +10,11 @@ Features:
 * **[Focus Scene View](#focus-scene-view)**
 * **[Auto-Select Avatar](#auto-select-avatar)**
 * **[Auto-Select Gesture Manager](#auto-select-gesture-manager)**
-* **[Change UI Component Fonts](#change-ui-component-fonts)** - New
-* **[Store Animations in Animators](#store-animations-in-animators)** - New
-* **[Generate Materials From Textures](#generate-materials-from-textures)** - New
-* **[Bulk Update a Material Property](#bulk-update-a-material-property)** - New
-* **[Quick Installers](#quick-installers)** - New
+* **[Change UI Component Fonts](#change-ui-component-fonts)**
+* **[Store Animations in Animators](#store-animations-in-animators)**
+* **[Generate Materials From Textures](#generate-materials-from-textures)**
+* **[Bulk Update a Material Property](#bulk-update-a-material-property)**
+* **[Quick Installers](#quick-installers)** - Updated!
 
 More functions may be added over time.
 
