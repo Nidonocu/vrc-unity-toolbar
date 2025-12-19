@@ -1,5 +1,8 @@
 # Change Log
 
+### 3.1.1
+* Fixes issue preventing avatar builds
+
 ### 3.1.0
 * Added a new feature to help quick install automatically the Mochie Shader pack as that package
   does not use the VCC or a manifest file. Tool can now alert of package updates and fetch the

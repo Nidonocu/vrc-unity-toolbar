@@ -2,9 +2,9 @@
 using System.IO;
 using UnityEditor;
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityToolbarExtender.Nidonocu.QuickInstallers;
 
-#if UNITY_EDITOR
 namespace UnityToolbarExtender.Nidonocu
 {
     public class VRExtensionButtonsSettings : ScriptableObject
