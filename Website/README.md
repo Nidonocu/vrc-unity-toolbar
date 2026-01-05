@@ -2,22 +2,24 @@
 
 This package adds additional buttons to the Unity Editor's Toolbar and Menu bar that removes the need to perform various frequent actions done when building avatars and worlds in [VR Chat](https://vrchat.com/).
 
+It also provides various automatic bulk functions via the Tools menu and quick installers and update management for some non-VCC packages, such as the Mochie Shader.
+
 Features:
 * **[Selection Navigation](#selection-navigation)**
 * **[Smart Duplication](#smart-Duplication)**
 * **[Focus Scene View](#focus-scene-view)**
 * **[Auto-Select Avatar](#auto-select-avatar)**
 * **[Auto-Select Gesture Manager](#auto-select-gesture-manager)**
-* **[Change UI Component Fonts](#change-ui-component-fonts)** - New
-* **[Store Animations in Animators](#store-animations-in-animators)** - New
-* **[Generate Materials From Textures](#generate-materials-from-textures)** - New
-* **[Bulk Update a Material Property](#bulk-update-a-material-property)** - New
-* **[Quick Installers](#quick-installers)** - New
+* **[Change UI Component Fonts](#change-ui-component-fonts)**
+* **[Store Animations in Animators](#store-animations-in-animators)**
+* **[Generate Materials From Textures](#generate-materials-from-textures)**
+* **[Bulk Update a Material Property](#bulk-update-a-material-property)**
+* **[Quick Installers](#quick-installers)** - Updated
 
 More functions may be added over time.
 
 ## Compatibility
-This package has been tested with `Unity 2022.3.22f` and the `VRChat SDK 3.8.2`.
+This package has been tested with `Unity 2022.3.22f` and the `VRChat SDK 3.10.1`.
 
 It should function in projects both using and not using the *VRChat Creator Companion*.
 
@@ -232,9 +234,14 @@ Choose this option from the **Quick Installers** menu and the package will be au
 
 #### Mochie Shaders (Free)
 
-This is a nice pack of good shaders for world use offering a nice selection of features without heavily increasing the download size for your world.
+This is a nice pack of good shaders for world use offering a nice selection of features without heavily increasing the download size for your world or avatar.
 
-Alas, the one downside of this shader pack is that it is only currently available as a downloadable and manually installed Unity Package as the developer doesn't currently support any automatable workflow for updating and installing the package.
+![Mochie Package Automatic Update and Downloader](https://nidonocu.github.io/vrc-unity-toolbar/Mochie_Installer.png)
 
-While I plan to work out a way to fix this in the future if they don't, for now this menu option under the **Quick Installers** menu will take you to their [GitHub](https://github.com/MochiesCode/Mochies-Unity-Shaders) download page so you can grab the latest version of their shader.
+As this shader pack is not distributed via the VCC or a manifest controlled repository, this tool will handle automatically checking the Shader pack's [GitHub Repo](https://github.com/MochiesCode/Mochies-Unity-Shaders) for updates and notify you when a new version is available. It will then automatically download the release's Unity Package and help you import the update.
 
+It can also be used to perform the initial install of the shader pack as well, all these options can be accessed from the **Quick Installers** menu.
+
+If you don't want automatic updates for the shader pack enabled, you can turn them off under **Edit** > **Project Settings** > **VRC Unity Toolbar** and checking **Don't check for Mochie Shader updates**.
+
+Automatic checks for updates will only occur by default if you have the shader pack installed. If you already have the shader pack installed after installing the 3.1.0 update, you will be prompted to do an update to record the current version to your settings file and ensure you are up to date.

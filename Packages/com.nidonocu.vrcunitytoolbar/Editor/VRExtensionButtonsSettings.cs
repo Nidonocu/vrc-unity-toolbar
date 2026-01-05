@@ -289,7 +289,7 @@ Note: Some symbol choices can not be used for Asset duplication and alternatives
 
                     EditorGUILayout.Space(20f);
 
-                    EditorGUILayout.LabelField("VRC Unity Toolbar - Version 3.1.0 - Created by Nidonocu © 2025", EditorStyles.boldLabel);
+                    EditorGUILayout.LabelField("VRC Unity Toolbar - Version 3.1.2 - Created by Nidonocu © 2025", EditorStyles.boldLabel);
 
                     EditorGUIUtility.labelWidth = 0f;
 

@@ -1,5 +1,8 @@
 # Change Log
 
+### 3.1.2
+* Fixes issue with Mochie version background checker running every time code is recompiled or in play mode
+
 ### 3.1.1
 * Fixes issue preventing avatar builds
 

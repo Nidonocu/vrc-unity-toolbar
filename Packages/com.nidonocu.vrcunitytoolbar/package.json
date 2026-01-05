@@ -1,7 +1,7 @@
 {
   "name": "com.nidonocu.vrcunitytoolbar",
   "displayName": "VRC Unity Toolbar",
-  "version": "3.1.1",
+  "version": "3.1.2-beta",
   "unity": "2022.3",
   "description": "Adds additional buttons to the Unity Editor's Toolbar that removes the need to perform various frequent actions done when building avatars and worlds in VR Chat. It also provides various automatic bulk functions via the Tools menu and quick installers and update management for some non-VCC packages, such as the Mochie Shader.",
   "gitDependencies": {},

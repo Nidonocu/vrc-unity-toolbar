@@ -182,6 +182,12 @@ namespace UnityToolbarExtender.Nidonocu.QuickInstallers
 
         private static async Task CheckForUpdate(string feedUrl, string apiUrl, bool isInBackground = false)
         {
+            // Don't run in play mode
+            if (EditorApplication.isPlaying)
+            {
+                return;
+            }
+
             var currentValue = settingsObject.FindProperty(nameof(VRExtensionButtonsSettings.LastMochieFeedUpdate));
             var currentVersion = settingsObject.FindProperty(nameof(VRExtensionButtonsSettings.InstalledMochieVersion));
             var lastCheckTime = settingsObject.FindProperty(nameof(VRExtensionButtonsSettings.LastMochieUpdateCheckTime));
@@ -306,6 +312,9 @@ namespace UnityToolbarExtender.Nidonocu.QuickInstallers
             finally
             {
                 isLoading = false;
+                settingsObject.FindProperty(nameof(VRExtensionButtonsSettings.LastMochieUpdateCheckTime)).stringValue = DateTime.Now.ToString();
+                settingsObject.ApplyModifiedProperties();
+                EditorUtility.SetDirty(settings);
             }
         }
 
@@ -522,7 +531,7 @@ namespace UnityToolbarExtender.Nidonocu.QuickInstallers
             settingsObject.FindProperty(nameof(VRExtensionButtonsSettings.LastMochieUpdateCheckTime)).stringValue = DateTime.Now.ToString();
             settingsObject.ApplyModifiedProperties();
             EditorUtility.SetDirty(settings);
-            Debug.Log($"[VRC Unity Toolbar] - [Mochie Updater] - Mochie is recored as on version: {nextVersionNumber}");
+            Debug.Log($"[VRC Unity Toolbar] - [Mochie Updater] - Mochie is recorded as on version: {nextVersionNumber}");
             CleanupTempFiles();
             EditorApplication.UnlockReloadAssemblies();
         }
@@ -565,11 +574,11 @@ namespace UnityToolbarExtender.Nidonocu.QuickInstallers
                     {
                         FileUtil.DeleteFileOrDirectory(folderPath);
                         tempFilePath = string.Empty;
-                        Debug.Log("[VRC Unity Toolbar] - [Mochie Updater] - Cleaned up Temp Files");
+                        Debug.Log("[VRC Unity Toolbar] - [Mochie Updater] - Cleaned up Temporary Files");
                     }
                     catch (Exception cleanUpFault)
                     {
-                        Debug.LogError("[VRC Unity Toolbar] - [Mochie Updater] - Error cleaning up temp download files: " + cleanUpFault.Message);
+                        Debug.LogError("[VRC Unity Toolbar] - [Mochie Updater] - Error cleaning up temporary download files: " + cleanUpFault.Message);
                     }
                 }
             }
