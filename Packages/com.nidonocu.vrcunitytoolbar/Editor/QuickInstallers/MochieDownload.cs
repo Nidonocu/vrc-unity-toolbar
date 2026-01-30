@@ -489,9 +489,9 @@ namespace UnityToolbarExtender.Nidonocu.QuickInstallers
                 if (folderConfidenceHigh)
                 {
                     message += "This tool can do this now before starting the import. We have located the Mochie shaders to be installed at:\n" +
-                        FileUtil.GetLogicalPath(MochieFolder.ToString()) + "\n" +
-                        "If it is okay to delete this folder and it contains no custom files, click 'Delete and Import Now' to continue.\n" +
-                        "Or choose 'Keep and Import Now' to just overwrite with new and changed files as normal. This may cause issues if some old files should have been deleted.\n" +
+                        FileUtil.GetLogicalPath(MochieFolder.ToString()) + "\n\n" +
+                        "If it is okay to delete this folder and it contains no custom files, click 'Delete and Import Now' to continue.\n\n" +
+                        "Or choose 'Keep and Import Now' to just overwrite with new and changed files as normal. This may cause issues if some old files should have been deleted.\n\n" +
                         "Click 'Cancel' to abort the Import and review the folder first yourself if needed. You can resume installing after by going to:\n" +
                         "Tools > Nidonocu > Quick Installers > Mochie Shader";
                     var deleteCheckHigh = EditorUtility.DisplayDialogComplex(title, message, "Delete and Import Now", "Cancel", "Keep and Import Now");
@@ -500,10 +500,10 @@ namespace UnityToolbarExtender.Nidonocu.QuickInstallers
                 }
                 else
                 {
-                    message += "This tool would offer to do this for you, but the layout of your project is not default and means the Mochie shaders are not where we expected them to be and we'ed rather play it safe!\n" +
+                    message += "This tool would offer to do this for you, but the layout of your project is not default and means the Mochie shaders are not where we expected them to be and better to play it safe than delete something wrong!\n\n" +
                         "We think the Mochi shaders are located at:\n" +
-                        FileUtil.GetLogicalPath(MochieFolder.ToString()) + "\n" +
-                        "If you want, you can ignore the deletion step and choose 'Keep and Import Now' to just overwrite with new and changed files as normal. This may cause issues if some old files should have been deleted.\n" +
+                        FileUtil.GetLogicalPath(MochieFolder.ToString()) + "\n\n" +
+                        "If you want, you can ignore the deletion step and choose 'Keep and Import Now' to just overwrite with new and changed files as normal. This may cause issues if some old files should have been deleted.\n\n" +
                         "Or you can click 'Cancel' to abort the Import and review the folder first yourself, deleting it if needed. You can resume installing after by going to:\n" +
                         "Tools > Nidonocu > Quick Installers > Mochie Shader";
                     var deleteCheckSimple = EditorUtility.DisplayDialog(title, message, "Keep and Import Now", "Cancel");
