@@ -35,6 +35,8 @@ namespace UnityToolbarExtender.Nidonocu
 
         public string InstalledMochieVersion = string.Empty;
 
+        public int InstalledMochieReleaseID = -1;
+
         public string LastMochieUpdateCheckTime = string.Empty;
 
         public bool NoMochieAutoUpdate = false;
@@ -261,7 +263,7 @@ Note: Some symbol choices can not be used for Asset duplication and alternatives
                     {
                         EditorGUILayout.HelpBox(string.Format(
                             MochieStatus, 
-                            settings.InstalledMochieVersion != string.Empty ? settings.InstalledMochieVersion : "Unknown", 
+                            settings.InstalledMochieVersion != string.Empty ? settings.InstalledMochieVersion + " (ID: " + settings.InstalledMochieReleaseID.ToString() + ")" : "Unknown", 
                             settings.LastMochieFeedUpdate != string.Empty ? settings.LastMochieFeedUpdate : "Unknown"
                             ), MessageType.Info);
                     } 
@@ -289,7 +291,7 @@ Note: Some symbol choices can not be used for Asset duplication and alternatives
 
                     EditorGUILayout.Space(20f);
 
-                    EditorGUILayout.LabelField("VRC Unity Toolbar - Version 3.1.2 - Created by Nidonocu © 2025", EditorStyles.boldLabel);
+                    EditorGUILayout.LabelField("VRC Unity Toolbar - Version 3.1.3 - Created by Nidonocu © 2026", EditorStyles.boldLabel);
 
                     EditorGUIUtility.labelWidth = 0f;
 

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Security.Policy;
@@ -45,6 +46,8 @@ namespace UnityToolbarExtender.Nidonocu.QuickInstallers
         private static string nextUpdateValue = string.Empty;
 
         private static string nextVersionNumber = string.Empty;
+
+        private static int nextVersionID = -1;
 
         private static string packageDownloadURL = string.Empty;
 
@@ -190,6 +193,7 @@ namespace UnityToolbarExtender.Nidonocu.QuickInstallers
 
             var currentValue = settingsObject.FindProperty(nameof(VRExtensionButtonsSettings.LastMochieFeedUpdate));
             var currentVersion = settingsObject.FindProperty(nameof(VRExtensionButtonsSettings.InstalledMochieVersion));
+            var currentVersionID = settingsObject.FindProperty(nameof(VRExtensionButtonsSettings.InstalledMochieReleaseID));
             var lastCheckTime = settingsObject.FindProperty(nameof(VRExtensionButtonsSettings.LastMochieUpdateCheckTime));
             
             // Skip background check if already checked today
@@ -229,7 +233,7 @@ namespace UnityToolbarExtender.Nidonocu.QuickInstallers
                         throw new Exception("Unable to locate new package version number or download path");
                     }
                     // Check values
-                    if (currentVersion.stringValue == string.Empty || IsSecondVersionNewer(currentVersion.stringValue, nextVersionNumber))
+                    if (currentVersion.stringValue == string.Empty || nextVersionID > currentVersionID.intValue)
                     {
                         var newVersionCheck = false;
 
@@ -462,15 +466,81 @@ namespace UnityToolbarExtender.Nidonocu.QuickInstallers
                     "OK");
                 return;
             }
+
+            var doDelete = false;
+            DirectoryInfo MochieFolder = null;
+            var doImport = false;
+
+            // Check the Mochie folder is where we expect
+            var MochieShader = Shader.Find(ShaderName);
+            if (MochieShader != null)
+            {
+                var pathToShader = AssetDatabase.GetAssetPath(MochieShader);
+
+                var StandardShaderFolder = Directory.GetParent(pathToShader);
+                MochieFolder = StandardShaderFolder.Parent;
+                var AssetsFolder = MochieFolder.Parent;
+
+                var folderConfidenceHigh = (MochieFolder.Name == "Mochie" && AssetsFolder.Name == "Assets");
+
+                var title = "VRC Unity Toolbar - Mochie Update - WARNING";
+                var message = "It is STRONGLY recommended by the Mochie developers to DELETE your existing Mochie shader files before starting the import.\n";
+
+                if (folderConfidenceHigh)
+                {
+                    message += "This tool can do this now before starting the import. We have located the Mochie shaders to be installed at:\n" +
+                        FileUtil.GetLogicalPath(MochieFolder.ToString()) + "\n" +
+                        "If it is okay to delete this folder and it contains no custom files, click 'Delete and Import Now' to continue.\n" +
+                        "Or choose 'Keep and Import Now' to just overwrite with new and changed files as normal. This may cause issues if some old files should have been deleted.\n" +
+                        "Click 'Cancel' to abort the Import and review the folder first yourself if needed. You can resume installing after by going to:\n" +
+                        "Tools > Nidonocu > Quick Installers > Mochie Shader";
+                    var deleteCheckHigh = EditorUtility.DisplayDialogComplex(title, message, "Delete and Import Now", "Cancel", "Keep and Import Now");
+                    if (deleteCheckHigh == 0) { doDelete = true; doImport = true; }
+                    else if (deleteCheckHigh == 2) { doImport = true; }
+                }
+                else
+                {
+                    message += "This tool would offer to do this for you, but the layout of your project is not default and means the Mochie shaders are not where we expected them to be and we'ed rather play it safe!\n" +
+                        "We think the Mochi shaders are located at:\n" +
+                        FileUtil.GetLogicalPath(MochieFolder.ToString()) + "\n" +
+                        "If you want, you can ignore the deletion step and choose 'Keep and Import Now' to just overwrite with new and changed files as normal. This may cause issues if some old files should have been deleted.\n" +
+                        "Or you can click 'Cancel' to abort the Import and review the folder first yourself, deleting it if needed. You can resume installing after by going to:\n" +
+                        "Tools > Nidonocu > Quick Installers > Mochie Shader";
+                    var deleteCheckSimple = EditorUtility.DisplayDialog(title, message, "Keep and Import Now", "Cancel");
+                    if (deleteCheckSimple) { doImport = true; }
+                }
+            }
+
+            if (!doImport)
+            {
+                return;
+            }
+
+            EditorApplication.LockReloadAssemblies();
+
             try
             {
+                if (doDelete)
+                {
+                    Debug.Log("[VRC Unity Toolbar] - Deleting " + FileUtil.GetLogicalPath(MochieFolder.ToString()));
+                    var deleteResult1 = FileUtil.DeleteFileOrDirectory(MochieFolder.ToString());
+                    var deleteResult2 = FileUtil.DeleteFileOrDirectory(MochieFolder.ToString() + ".meta");
+                    if (deleteResult1 && deleteResult2)
+                    {
+                        Debug.Log("[VRC Unity Toolbar] - Delete Successful");
+                    } 
+                    else
+                    {
+                        Debug.Log("[VRC Unity Toolbar] - Delete was not fully successful");
+                    }
+                }
+
                 // Save Last Checks
                 AssetDatabase.importPackageCancelled += AssetDatabase_importPackageCancelled;
                 AssetDatabase.importPackageFailed += AssetDatabase_importPackageFailed;
                 AssetDatabase.importPackageCompleted += AssetDatabase_importPackageCompleted;
                 EditorApplication.update += CheckForImportWindow;
                 isImportInProgress = true;
-                EditorApplication.LockReloadAssemblies();
                 AssetDatabase.ImportPackage(tempFilePath, true);
             }
             catch (Exception fault)
@@ -482,6 +552,8 @@ namespace UnityToolbarExtender.Nidonocu.QuickInstallers
                     "Try again by going to:\n" +
                     "Tools > Nidonocu > Quick Installers > Mochie Shader",
                     "OK");
+                isImportInProgress = false;
+                EditorApplication.UnlockReloadAssemblies();
                 return;
             }
         }
@@ -518,7 +590,7 @@ namespace UnityToolbarExtender.Nidonocu.QuickInstallers
         private static void AssetDatabase_importPackageCompleted(string packageName)
         {
             Debug.Log($"[VRC Unity Toolbar] - [Mochie Updater] - New Mochie files were installed!");
-            CompleteImporting();            
+            CompleteImporting();
         }
 
         public static void CompleteImporting()
@@ -528,6 +600,7 @@ namespace UnityToolbarExtender.Nidonocu.QuickInstallers
             settingsObject.Update();
             settingsObject.FindProperty(nameof(VRExtensionButtonsSettings.LastMochieFeedUpdate)).stringValue = nextUpdateValue;
             settingsObject.FindProperty(nameof(VRExtensionButtonsSettings.InstalledMochieVersion)).stringValue = nextVersionNumber;
+            settingsObject.FindProperty(nameof(VRExtensionButtonsSettings.InstalledMochieReleaseID)).intValue = nextVersionID;
             settingsObject.FindProperty(nameof(VRExtensionButtonsSettings.LastMochieUpdateCheckTime)).stringValue = DateTime.Now.ToString();
             settingsObject.ApplyModifiedProperties();
             EditorUtility.SetDirty(settings);
@@ -646,6 +719,13 @@ namespace UnityToolbarExtender.Nidonocu.QuickInstallers
                     throw new Exception("No releases returned by API");
                 }
 
+                if (releases[0].prerelease)
+                {
+                    Debug.Log("[VRC Unity Toolbar] - [Mochie Updater] - New release is pre-release version. Ignoring.");
+                    return;
+                }
+
+                nextVersionID = releases[0].id;
                 nextVersionNumber = releases[0].tag_name;
 
                 foreach (var asset in releases[0].assets)
@@ -663,51 +743,38 @@ namespace UnityToolbarExtender.Nidonocu.QuickInstallers
             }
         }
 
-        static bool IsSecondVersionNewer(string v1, string v2)
-        {
-            // Remove leading 'v' if present
-            v1 = v1.TrimStart('v', 'V');
-            v2 = v2.TrimStart('v', 'V');
-
-            var ver1 = new Version(v1);
-            var ver2 = new Version(v2);
-
-            return (ver1.CompareTo(ver2) < 0);
-        }
-
         [MenuItem("Tools/Nidonocu/Quick Installers/Mochie Shader", false, 1001)]
         public static void RequestInstall()
         {
             if (isLoading)
                 return;
-            if (CheckInstalledPackage.IsShaderPresent(ShaderName))
+
+            if (downloadComplete)
             {
-                if (downloadComplete)
+                var readyToInstall = EditorUtility.DisplayDialog(
+                "VRC Unity Toolbar - Mochie Update",
+                "Download of the Mochie package has been completed.\n" +
+                $"Are you ready to import it now?",
+                "Import Now",
+                "Later");
+                if (readyToInstall)
                 {
-                    var readyToInstall = EditorUtility.DisplayDialog(
-                    "VRC Unity Toolbar - Mochie Update",
-                    "Download of the Mochie package has been completed.\n" +
-                    $"Are you ready to import it now?",
-                    "Import Now",
-                    "Later");
-                    if (readyToInstall)
-                    {
-                        DoImportPackage();
-                    }
-                    else
-                    {
-                        EditorUtility.DisplayDialog(
-                            "VRC Unity Toolbar - Mochie Update",
-                            "Okay, the download file will remain availible until you exit Unity.\n" +
-                            "When you're ready, finish the install by going to:\n" +
-                            "Tools > Nidonocu > Quick Installers > Mochie Shader",
-                            "OK");
-                    }
+                    DoImportPackage();
                 }
                 else
                 {
-                    _ = CheckForUpdate(MochieReleasesAtomUrl, MochieReleasesApi);
+                    EditorUtility.DisplayDialog(
+                        "VRC Unity Toolbar - Mochie Update",
+                        "Okay, the download file will remain availible until you exit Unity.\n" +
+                        "When you're ready, finish the install by going to:\n" +
+                        "Tools > Nidonocu > Quick Installers > Mochie Shader",
+                        "OK");
                 }
+            }
+
+            if (CheckInstalledPackage.IsShaderPresent(ShaderName))
+            {
+                _ = CheckForUpdate(MochieReleasesAtomUrl, MochieReleasesApi);
             }
             else
             {
@@ -743,7 +810,11 @@ namespace UnityToolbarExtender.Nidonocu.QuickInstallers
 
     public class GithubRelease
     {
+        public int id;
+
         public string tag_name;
+
+        public bool prerelease;
 
         public List<ReleaseAsset> assets;
     }

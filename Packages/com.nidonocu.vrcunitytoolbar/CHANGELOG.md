@@ -1,5 +1,10 @@
 # Change Log
 
+### 3.1.3
+* Fixes issue with non-standard version numbers causing error when running Mochie update check.
+* Adds prompt and automatic functionality to delete Mochie shader folder before beginning installation in accordance
+  with the shader developer's installation guidance.
+
 ### 3.1.2
 * Fixes issue with Mochie version background checker running every time code is recompiled or in play mode
 
