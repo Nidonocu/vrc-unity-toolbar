@@ -509,6 +509,11 @@ namespace UnityToolbarExtender.Nidonocu.QuickInstallers
                     var deleteCheckSimple = EditorUtility.DisplayDialog(title, message, "Keep and Import Now", "Cancel");
                     if (deleteCheckSimple) { doImport = true; }
                 }
+            } 
+            else
+            {
+                // No existing files, just importing
+                doImport = true;
             }
 
             if (!doImport)

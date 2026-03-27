@@ -1,5 +1,9 @@
 # Change Log
 
+### 3.1.4
+* Fixes issue when installing the Mochie shader for the first time via the toolbar and it's not
+ already in the project.
+
 ### 3.1.3
 * Fixes issue with non-standard version numbers causing error when running Mochie update check.
 * Adds prompt and automatic functionality to delete Mochie shader folder before beginning installation in accordance
