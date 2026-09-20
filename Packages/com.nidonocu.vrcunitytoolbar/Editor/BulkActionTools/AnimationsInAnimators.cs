@@ -4,6 +4,7 @@ using System.Threading;
 using UnityEditor;
 using UnityEditor.Animations;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 namespace UnityToolbarExtender.Nidonocu.BulkActionTools
 {
@@ -22,8 +23,8 @@ namespace UnityToolbarExtender.Nidonocu.BulkActionTools
                 true,
                 "Store Animations in Animators",
                 true);
-            window.minSize = new Vector2(400, 600);
-            window.maxSize = new Vector2(400, 600);
+            window.minSize = new Vector2(400, 725);
+            window.maxSize = new Vector2(400, 725);
             window.Show();
         }
 
@@ -75,7 +76,7 @@ namespace UnityToolbarExtender.Nidonocu.BulkActionTools
             GUILayout.Label("    Generate Child Animations", boldStyle);
             GUILayout.Space(5);
             GUILayout.Label(
-                "Animation Clips will be created using Layer and Node names and placed as child assets " +
+                "Animation Clips will be created using Layer Name and Node name (and also Sub-State-Machine name if part of a Sub-State-Machine) and placed as child assets " +
                 "of the Animation Controller, keeping the two associated together.",
                 WrappedLabelStyle
                 );
@@ -91,7 +92,18 @@ namespace UnityToolbarExtender.Nidonocu.BulkActionTools
             GUILayout.Label("Removing Child Animation Clips", headerStyle);
 
             GUILayout.Label(
-                "Animation Clips once added cannot be individually deleted, but all generated clips can be wiped at once." + 
+                "The normal 'Delete' option won't work on child assets. To delete a child animation clip later, perform the following steps:" +
+                "\n 1. In the project window, expand the Animation Controller to view the list of child clips." +
+                "\n 2. Select one or more animation clips to remove using left click or left-click while holding Shift to select more than one." +
+                "\n 3. Right-click any of the selected animation clips and click:",
+                WrappedLabelStyle
+                );
+            GUILayout.Label("    Delete Child Animation", boldStyle);
+
+            GUILayout.Space(10);
+
+            GUILayout.Label(
+                "You can also remove all the generated child animation clips at once." + 
                 "\n To do this, right-click the animation controller and choose:",
                 WrappedLabelStyle
                 );
@@ -148,6 +160,7 @@ namespace UnityToolbarExtender.Nidonocu.BulkActionTools
                 {
                     layerName = layerName + " - ";
                 }
+
                 foreach (var state in layer.stateMachine.states)
                 {
                     if (state.state.motion == null)
@@ -158,15 +171,40 @@ namespace UnityToolbarExtender.Nidonocu.BulkActionTools
                         state.state.motion = newAnimationClip;
                     }
                 }
+                
+                foreach (var submachine in layer.stateMachine.stateMachines)
+                {
+                    animationClips.AddRange(ProcessSubMachine(submachine, layerName));
+                }
             }
             foreach (var animationClip in animationClips)
             {
                 AssetDatabase.AddObjectToAsset(animationClip, selectedAnimator);
-                AssetDatabase.ImportAsset(AssetDatabase.GetAssetPath(animationClip));
             }
             AssetDatabase.SaveAssets();
-            Debug.Log(animationClips.Count.ToString() + " clip(s) created and added to " + selectedAnimator.name);
+            Debug.Log(animationClips.Count.ToString() + " clip" + ((animationClips.Count > 1) ? "s" : "") + " created and added to " + selectedAnimator.name);
             EditorGUIUtility.PingObject(selectedAnimator);
+        }
+
+        private static List<AnimationClip> ProcessSubMachine(ChildAnimatorStateMachine subMachine, string currentNameString)
+        {
+            var localAnimationClipList = new List<AnimationClip>();
+            var nameString = currentNameString + subMachine.stateMachine.name + " - ";
+            foreach (var subSubMachine in subMachine.stateMachine.stateMachines)
+            {
+                localAnimationClipList.AddRange(ProcessSubMachine(subSubMachine, nameString));
+            }
+            foreach (var state in subMachine.stateMachine.states)
+            {
+                if (state.state.motion == null)
+                {
+                    var newAnimationClip = new AnimationClip();
+                    newAnimationClip.name = nameString + state.state.name;
+                    localAnimationClipList.Add(newAnimationClip);
+                    state.state.motion = newAnimationClip;
+                }
+            }
+            return localAnimationClipList;
         }
 
         [MenuItem("Assets/Generate Child Animations", true, 100)]
@@ -180,8 +218,94 @@ namespace UnityToolbarExtender.Nidonocu.BulkActionTools
             return false;
         }
 
-        [MenuItem("Assets/Delete Child Animations", false, 101)]
+        [MenuItem("Assets/Delete Child Animation", false, 101)]
         public static void DeleteFromAnimator()
+        {
+            var selectedClips = Selection.GetFiltered<AnimationClip>(SelectionMode.Unfiltered);
+            var selectedAnimator = AssetDatabase.LoadMainAssetAtPath(AssetDatabase.GetAssetPath(selectedClips[0])) as AnimatorController;
+
+            var title = (selectedClips.Length == 1) ? "Delete Selected Animation Clip" : "Delete " + selectedClips.Length + " Animation Clips";
+            var body = string.Empty;
+            if (selectedClips.Length == 1)
+            {
+                body = "Are you sure you wish the delete the animation clip '" + selectedClips[0].name + "' from the animator '" + selectedAnimator.name + "'?";
+            }
+            else
+            {
+                body = "Are you sure you wish the delete the following animation clips from the animator '" + selectedAnimator.name + "'?\n";
+                foreach (var clip in selectedClips)
+                {
+                    body += "\n• " + clip.name;
+                }
+            }
+
+            body += "\n\nThis action can NOT be undone!";
+
+            var confirmButton = (selectedClips.Length == 1) ? "Delete Clip" : "Delete Clips";
+
+            var confirm = EditorUtility.DisplayDialog(title, body, confirmButton, "Cancel");
+            if (!confirm)
+            {
+                return;
+            }
+
+            var assets = AssetDatabase.LoadAllAssetsAtPath(AssetDatabase.GetAssetPath(selectedAnimator));
+            var clipCount = 0;
+            foreach (var selectedClip in selectedClips)
+            {
+                foreach (var asset in assets)
+                {
+                    if (asset != selectedClip)
+                    {
+                        continue;
+                    }
+                    if (asset.GetType() == typeof(AnimationClip))
+                    {
+                        FindAndRemoveClipFromStateMachine(selectedAnimator, (AnimationClip)asset);
+                        AssetDatabase.RemoveObjectFromAsset(asset);
+                        AssetDatabase.SaveAssets();
+                        clipCount++;
+                    }
+                }
+            }
+            AssetDatabase.SaveAssets();
+            Debug.Log(clipCount.ToString() + " clip" + ((clipCount > 1) ? "s" : "") + " deleted from " + selectedAnimator.name);
+        }
+
+        [MenuItem("Assets/Delete Child Animation", true, 101)]
+        public static bool DeleteFromAnimatorValidation()
+        {
+            var checkSelected = Selection.GetFiltered<AnimationClip>(SelectionMode.Unfiltered);
+            if (checkSelected.Length > 0)
+            {
+                var allValid = true;
+                foreach (var clip in checkSelected)
+                {
+                    var mainAsset = AssetDatabase.LoadMainAssetAtPath(AssetDatabase.GetAssetPath(clip));
+                    if (mainAsset == clip)
+                    {
+                        allValid = false;
+                        break;
+                    } 
+                    else
+                    {
+                        if (!(mainAsset is AnimatorController))
+                        {
+                            allValid = false;
+                            break;
+                        }
+                    }
+                }
+                if (allValid)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        [MenuItem("Assets/Delete All Child Animations", false, 102)]
+        public static void DeleteAllFromAnimator()
         {
             var selectedAnimators = Selection.GetFiltered<AnimatorController>(SelectionMode.Assets);
             var selectedAnimator = selectedAnimators[0];
@@ -199,21 +323,33 @@ namespace UnityToolbarExtender.Nidonocu.BulkActionTools
             }
 
             var assets = AssetDatabase.LoadAllAssetsAtPath(AssetDatabase.GetAssetPath(selectedAnimator));
+            var clipCount = 0;
             foreach (var asset in assets)
             {
                 if (asset.GetType() == typeof(AnimationClip))
                 {
                     FindAndRemoveClipFromStateMachine(selectedAnimator, (AnimationClip)asset);
                     AssetDatabase.RemoveObjectFromAsset(asset);
+                    AssetDatabase.SaveAssets();
+                    clipCount++;
                 }
             }
             AssetDatabase.SaveAssets();
+
+            Debug.Log(clipCount.ToString() + " clip" + ((clipCount > 1) ? "s" : "") + " deleted from " + selectedAnimator.name);
         }
 
         private static void FindAndRemoveClipFromStateMachine(AnimatorController controller, AnimationClip animationClip)
         {
             foreach (var layer in controller.layers)
             {
+                foreach (var subMachine in layer.stateMachine.stateMachines)
+                {
+                    if (FindAndRemoveClipFromSubStateMachine(subMachine, animationClip))
+                    {
+                        return;
+                    }
+                }
                 foreach (var state in layer.stateMachine.states)
                 {
                     if (state.state.motion == animationClip)
@@ -222,11 +358,34 @@ namespace UnityToolbarExtender.Nidonocu.BulkActionTools
                         return;
                     }
                 }
+
             }
         }
 
-        [MenuItem("Assets/Delete Child Animations", true, 101)]
-        public static bool DeleteFromAnimatorValidation()
+        private static bool FindAndRemoveClipFromSubStateMachine(ChildAnimatorStateMachine subMachine, AnimationClip animationClip)
+        {
+            foreach (var subSubStatemachine in subMachine.stateMachine.stateMachines)
+            {
+                if (FindAndRemoveClipFromSubStateMachine (subSubStatemachine, animationClip))
+                {
+                    return true;
+                }
+            }
+
+            foreach (var state in subMachine.stateMachine.states)
+            {
+                if (state.state.motion == animationClip)
+                {
+                    state.state.motion = null;
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        [MenuItem("Assets/Delete All Child Animations", true, 102)]
+        public static bool DeleteAllFromAnimatorValidation()
         {
             var checkSelected = Selection.GetFiltered<AnimatorController>(SelectionMode.Assets);
             if (checkSelected.Length == 1)

@@ -1,6 +1,20 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-5822339989274225008
+--- !u!114 &-9049073937473468655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d236b7d11115f2143951f1e14045df39, type: 3}
+  m_Name: Standalone Settings
+  m_EditorClassIdentifier: 
+  m_LoaderManagerInstance: {fileID: 4491834048015597948}
+  m_InitManagerOnStart: 0
+--- !u!114 &-4753027786048225596
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -13,20 +27,6 @@ MonoBehaviour:
   m_Name: iPhone Settings
   m_EditorClassIdentifier: 
   m_LoaderManagerInstance: {fileID: 0}
-  m_InitManagerOnStart: 0
---- !u!114 &-3918484987824165557
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d236b7d11115f2143951f1e14045df39, type: 3}
-  m_Name: Standalone Settings
-  m_EditorClassIdentifier: 
-  m_LoaderManagerInstance: {fileID: 3124315920625480013}
   m_InitManagerOnStart: 0
 --- !u!114 &11400000
 MonoBehaviour:
@@ -42,10 +42,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Keys: 010000000700000004000000
   Values:
-  - {fileID: -3918484987824165557}
-  - {fileID: 7923942625913371588}
-  - {fileID: -5822339989274225008}
---- !u!114 &3124315920625480013
+  - {fileID: -9049073937473468655}
+  - {fileID: 8928024470891794172}
+  - {fileID: -4753027786048225596}
+--- !u!114 &4491834048015597948
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -61,8 +61,8 @@ MonoBehaviour:
   m_AutomaticLoading: 0
   m_AutomaticRunning: 0
   m_Loaders:
-  - {fileID: 11400000, guid: 143f9660373a55746916cdc58e5eb9c0, type: 2}
---- !u!114 &7923942625913371588
+  - {fileID: 11400000, guid: 3fc10c45e7f1ca9478d27216c2106211, type: 2}
+--- !u!114 &8928024470891794172
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

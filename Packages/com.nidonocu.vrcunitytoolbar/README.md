@@ -19,7 +19,7 @@ Features:
 More functions may be added over time.
 
 ## Compatibility
-This package has been tested with `Unity 2022.3.22f` and the `VRChat SDK 3.10.1`.
+This package has been tested with `Unity 2022.3.22f` and the `VRChat SDK 3.10.1` and version `3.10.5`.
 
 It should function in projects both using and not using the *VRChat Creator Companion*.
 
@@ -196,7 +196,21 @@ This menu option opens a tutorial window to for a reminder of how to use this fe
 
 You can add more animations at any time by repeating the above steps.
 
-***Important Note:*** You cannot remove individual animation assets once they have been created at this time, you can only delete all animations at once by choosing the **Delete Child Animations** option instead on the Animator's context menu.
+Sub-State-Machines are supported but BlendTrees will be ignored.
+
+#### Deleting Animation Clips
+
+You can't use the normal *Delete* command for child animations, but a custom menu option has been added to let you remove Animations you no longer need.
+
+**1.** Expand the Animation Controller's contents using the small arrow beside the Controller's file in the **Project** window.
+
+**2.** **Left-click** the animation clip you want to delete. Hold **Shift** and **left-click** to select multiple clips.
+
+**3.** **Right-click** any of the selected clips, and choose **Delete Child Animation** to delete the selected clips. If you want to delete **ALL** the child clips for an Animation Controller, choose **Delete All Child Animations**.
+
+![Animation Clip's Context Menu](https://nidonocu.github.io/vrc-unity-toolbar/Delete_Animations_Menu.png)
+
+After a confirmation window, the clips will be deleted *permanently*.
 
 ### Generate Materials From Textures
 

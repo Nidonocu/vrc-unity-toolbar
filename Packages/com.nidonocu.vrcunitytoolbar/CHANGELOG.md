@@ -1,5 +1,9 @@
 # Change Log
 
+### 3.2.0
+* Adds the ability to delete specific child AnimationClips that are part of an Animation Controller asset.
+* Adds support for generating and storing AnimationClips in an Animation Controller Asset that are part of Sub-State-Machines.
+
 ### 3.1.4
 * Fixes issue when installing the Mochie shader for the first time via the toolbar and it's not
  already in the project.
